@@ -2,7 +2,7 @@ from django.urls import path
 
 from Nuevavida.vistas import planviews
 
-from .vistas import usuarioviews, planviews
+from .vistas import usuarioviews, planviews, metodopagoviews
  
 app_name= "Nuevavida"
 urlpatterns = [
@@ -28,11 +28,11 @@ urlpatterns = [
 
     #crud metodos de pago
 
-    #path('MetodoPago/',usuarioviews.listarMetodoPago, name="agregarMetodoPago"),
-    #path('MetodoPago/',usuarioviews.listarTrabajador, name="editarMetodoPago"),
-    #path ('formularioMetodoPago/<int:id>',views.formulariMetodoPago, name="formularioMetodoPago"),
-    #path ('guardarMetodoPago/',views.guardarMetodoPago, name="guardaroPlan"),
-    #path('eliminarMetodoPago/<int:id>',usuarioviews.eliminarMetodoPago, name="eliminarMetodoPago"),
+    path('listarMetodoPago/',metodopagoviews.listarMetodoPago, name="listarMetodoPago"),
+    path('MetodoPago/',metodopagoviews.listarMetodoPago, name="editarMetodoPago"),
+    path ('formularioMetodoPago/<int:id>',metodopagoviews.formularioMetodoPago, name="formularioMetodoPago"),
+    path ('guardarMetodoPago/',metodopagoviews.guardarMetodoPago, name="guardarMetodoPago"),
+    path('eliminarMetodoPago/<int:id>',metodopagoviews.eliminarMetodoPago, name="eliminarMetodoPago"),
 
 
     #crud Documentaciones
