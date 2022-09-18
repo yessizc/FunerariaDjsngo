@@ -15,46 +15,49 @@ from django.db import IntegrityError
 
 #para accedser a las consultas de base de datos
 
-from..models import Usuario 
+from..models import Cotizante, Plan
 
 
 def index(request):
     return render (request,'index.html')
 
-def listarUsuarios (request):
-    q = Usuario.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
+def listarCotizante (request):
+    q = Cotizante.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
     context = {"datos":q}
-    return render(request, 'usuario/listarUsuario.html',context)
+    return render(request, 'cotizante/listarCotizante.html',context)
 
-def formularioUsuario (request, id):
+def formularioCotizante (request, id):
     print(id)
     if id != 0:
-        q = Usuario.objects.get(pk = id) 
+        q = Cotizante.objects.get(pk = id) 
+        p = Plan.objects.all()
         q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
         print(q.fechaNacimiento)
-        context = {"Usuario":q}
-        return render(request, 'usuario/agregarUsuario.html',context)
+        context = {"Cotizante":q, "Planes" : p}
+        return render(request, 'cotizante/agregarCotizante.html',context)
     else:
         t = {'id':id}
-        context = {"Usuario":t}
-        return render(request,'usuario/agregarUsuario.html', context)
+        p = Plan.objects.all()
+        context = {"Cotizante":t, "Planes" : p}
+        return render(request,'cotizante/agregarCotizante.html', context)
 
 
-def guardarUsuario (request):
+def guardarCotizante (request):
     print(request.POST["telefono"])
     try:
         if request.method=="POST":
-            q = Usuario(
+            q = Cotizante(
                 cedula = request.POST["cedula"],
                 nombre = request.POST["nombre"],
                 apellido = request.POST["apellido"],
                 telefono = request.POST["telefono"],
                 correo = request.POST["correo"],
+                idplan = Plan.objects.get(pk = request.POST["idPlan"]),
                 fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
             )
             q.save()
         #si todo esta bien.
-            messages.success(request," El Usuario fue guardado correctamente!")
+            messages.success(request," El Cotizante fue guardado correctamente!")
             #messages.info(request," probando info!")
             #messages.warning(request," probando warning!")
             #messages.debug(request," probando debug")
@@ -65,42 +68,43 @@ def guardarUsuario (request):
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('usuario:listarUsuario')
+    return redirect('Nuevavida:listarCotizante')
 
 
-def editarUsuario (request, id):
-    print("update")
+def editarCotizante (request, id):
+    print(request.POST["idPlan"])
     try :
         if request.method=="POST":
 
-            usuario = Usuario.objects.get(pk = id)
-            usuario.cedula = request.POST["cedula"]
-            usuario.nombre = request.POST ["nombre"]
-            usuario.apellido = request.POST["apellido"]
-            usuario.telefono = request.POST["telefono"]
-            usuario.correo = request.POST["correo"]
-            usuario.fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
-            usuario.save()
-            messages.success(request," El Usuario fue editado correctamente!")
+            cotizante = Cotizante.objects.get(pk = id)
+            cotizante.cedula = request.POST["cedula"]
+            cotizante.nombre = request.POST ["nombre"]
+            cotizante.apellido = request.POST["apellido"]
+            cotizante.telefono = request.POST["telefono"]
+            cotizante.correo = request.POST["correo"]
+            cotizante.idplan = Plan.objects.get(pk = request.POST["idPlan"])
+            cotizante.fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
+            cotizante.save()
+            messages.success(request," El Cotizante fue editado correctamente!")
 
         else:
             messages.warning(request,"no se han eviado los datos correctamente...")
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarUsuario')
+    return redirect('Nuevavida:listarCotizante')
 
 
-def eliminarUsuario (request, id):
+def eliminarCotizante (request, id):
     try:
-        usuario = Usuario.objects.get(pk = id)
-        usuario.delete()
-        messages.success(request," El Usuario se ha eliminado correctamente!")
+        cotizante = Cotizante.objects.get(pk = id)
+        cotizante.delete()
+        messages.success(request," El Cotizante se ha eliminado correctamente!")
 
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarUsuario')
+    return redirect('Nuevavida:listarCotizante')
 
 
 

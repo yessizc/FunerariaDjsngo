@@ -1,20 +1,22 @@
 from django.urls import path
+from Nuevavida.models import Cotizante
+from .vistas import cotizanteviews, planviews
 
-from Nuevavida.vistas import planviews
 
-from .vistas import usuarioviews, planviews, metodopagoviews
+
+
  
 app_name= "Nuevavida"
 urlpatterns = [
-    path('', usuarioviews.index,name="index"), 
+    path('', cotizanteviews.index,name="index"), 
 
-    # crud usuarios
+    # crud cotizantes
     
-    path('Usuario/',usuarioviews.listarUsuarios, name="listarUsuario"),
-    path('editarUsuario/<int:id>',usuarioviews.editarUsuario, name="editarUsuario"),
-    path ('formularioUsuario/<int:id>',usuarioviews.formularioUsuario, name="formularioUsuario"),
-    path ('agregarUsuario/',usuarioviews.guardarUsuario, name="agregarUsuario"),
-    path('eliminarUsuario/<int:id>',usuarioviews.eliminarUsuario, name="eliminarUsuario"),
+    path('Cotizante/',cotizanteviews.listarCotizante, name="listarCotizante"),
+    path('editarCotizante/<int:id>',cotizanteviews.editarCotizante, name="editarCotizante"),
+    path ('formularioCotizante/<int:id>',cotizanteviews.formularioCotizante, name="formularioCotizante"),
+    path ('agregarCotizante/',cotizanteviews.guardarCotizante, name="agregarCotizante"),
+    path('eliminarCotizante/<int:id>',cotizanteviews.eliminarCotizante, name="eliminarCotizante"),
 
 
     # crud Plan
@@ -26,14 +28,7 @@ urlpatterns = [
     path('eliminarPlan/<int:id>',planviews.eliminarPlan, name="eliminarPlan"),
 
 
-    #crud metodos de pago
-
-    path('listarMetodoPago/',metodopagoviews.listarMetodoPago, name="listarMetodoPago"),
-    path('MetodoPago/',metodopagoviews.listarMetodoPago, name="editarMetodoPago"),
-    path ('formularioMetodoPago/<int:id>',metodopagoviews.formularioMetodoPago, name="formularioMetodoPago"),
-    path ('guardarMetodoPago/',metodopagoviews.guardarMetodoPago, name="guardarMetodoPago"),
-    path('eliminarMetodoPago/<int:id>',metodopagoviews.eliminarMetodoPago, name="eliminarMetodoPago"),
-
+    
 
     #crud Documentaciones
 

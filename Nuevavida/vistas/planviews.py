@@ -30,24 +30,21 @@ def formularioPlan (request, id):
     print(id)
     if id != 0:
         q = Plan.objects.get(pk = id) 
-        q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
-        print(q.fechaNacimiento)
         context = {"Plan":q}
-        return render(request, 'Plan/agregarPlan.html',context)
+        return render(request, 'planes/agregarPlan.html',context)
     else:
         t = {'id':id}
         context = {"Plan":t}
-        return render(request,'Plan/agregarPlan.html', context)
+        return render(request,'planes/agregarPlan.html', context)
 
 
 def guardarPlan (request):
-    print(request.POST["telefono"])
     try:
         if request.method=="POST":
             q = Plan(
-                nombreplan = request.POST["nombrePlan"],
+                nombrePlan = request.POST["nombre"],
                 precio = request.POST["precio"],
-                
+                caracteristicas = request.POST["caracteristicas"]
                 
             )
             q.save()
@@ -63,7 +60,7 @@ def guardarPlan (request):
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('usuario:listarPlan')
+    return redirect('Nuevavida:listarPlan')
 
 
 def editarPlan (request, id):
@@ -72,8 +69,8 @@ def editarPlan (request, id):
         if request.method=="POST":
             plan = Plan.objects.get(pk = id)
 
-            
-            plan.nombrePlan = request.POST["nombrePlan"]
+            plan.caracteristicas = request.POST["caracteristicas"]
+            plan.nombrePlan = request.POST["nombre"]
             plan.precio = request.POST ["precio"]
             
             plan.save()

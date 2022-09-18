@@ -14,9 +14,9 @@
 <table class="table table-striped table-hover" border="2px" id="tablePlan">
     <thead>
         <tr>
-            <th>idPlan</th>
             <th>nombrePlan</th>
             <th>precio</th>
+            <th>caracteristicas</th>
            
             
         </tr>
@@ -24,9 +24,9 @@
 
     {%for t in datos %}
     <tr>
-        <td>{{t.idPlan}}</td>
         <td>{{t.nombrePlan}}</td>
         <td>{{t.precio}}</td>
+        <td>{{t.caracteristicas}}</td>
         
         
         <td><button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioPlan' t.id %}">Editar</a></button>&nbsp;<button class="btn btn-danger"><a style="text-decoration: none; color:white"href="/Nuevavida/eliminarPlan/{{t.id}}">Eliminar</a></button></td>
