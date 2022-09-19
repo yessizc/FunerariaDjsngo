@@ -6,8 +6,8 @@ from .models import Cotizante, Plan,  Factura, Beneficiario, Pagos
 
 @admin.register(Cotizante) #decorador
 class CotizanteAdmin (admin.ModelAdmin):
-    list_display =('cedula','nombre','apellido','correo','telefono','fechaNacimiento') 
-    search_fields=['nombre', 'cedula'] 
+    list_display =('cedula','nombre','apellido','correo','telefono','fechaNacimiento','deuda') 
+    search_fields=['nombre', 'cedula','deuda'] 
 
 
 @admin.register(Beneficiario)
@@ -34,8 +34,8 @@ class FacturaAdmin(admin.ModelAdmin):
 
 @admin.register(Pagos)
 class PagosAdmin (admin.ModelAdmin):
-    list_display = ('valor','fechaPago','cuota','deuda','idFactura','cedulaCotizante')
-    search_fields = ['cedulaCotizante','fechaPago','deuda', 'valor']
+    list_display = ('valor','fechaPago','cuota','idFactura','cedulaCotizante')
+    search_fields = ['cedulaCotizante','fechaPago','valor']
 
 
 

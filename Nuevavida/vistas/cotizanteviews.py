@@ -22,7 +22,7 @@ def index(request):
     return render (request,'index.html')
 
 def listarCotizante (request):
-    q = Cotizante.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
+    q = Cotizante.objects.all() #DICCIONARIO CON LOS DATOS 
     context = {"datos":q}
     return render(request, 'cotizante/listarCotizante.html',context)
 

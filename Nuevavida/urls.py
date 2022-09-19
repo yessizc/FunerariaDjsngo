@@ -1,6 +1,6 @@
 from django.urls import path
 from Nuevavida.models import Cotizante
-from .vistas import cotizanteviews, planviews
+from .vistas import cotizanteviews, planviews, facturaviews, pagosviews, beneficiarioviews
 
 
 
@@ -29,22 +29,29 @@ urlpatterns = [
 
 
     
-
-    #crud Documentaciones
-
-    #path('Documentaciones/',views.listarDocumentaciones, name="agregarDocumentaciones"),
-    #path('Documentaciones/',views.listarDocumentaciones, name="editarDocumentaciones"),
-    #path ('formularioDocumentaciones/<int:id>',views.formularioDocumentaciones, name="formularioDocumentaciones"),
-    #path ('guardarDocumentaciones/',views.guardarMetodoPago, name="guardaroPlan"),
-    #path('eliminarDocumentaciones/<int:id>',views.eliminarDocumentaciones, name="eliminarDocumentaciones"),
-
     # crud Factura
 
-    #path('Factura/',views.listarDFactura, name="agregarFactura"),
-    #path('Factura/',views.listarFactura, name="editarFactura"),
-    #path ('formularioFactura/<int:id>',views.formularioFactura, name="formularioFactura"),
-    #path ('guardarFacturas/',views.guardarFactura, name="guardarFactura"),
-    #path('eliminarFactura/<int:id>',views.eliminarFactura, name="eliminarFactura"),
+    path('Factura/',facturaviews.listarFactura, name="listarFactura"),
+    path('verFactura/<int:id>',facturaviews.verFactura, name="verFactura"),
+    path('verFacturaPago/<int:id>',facturaviews.verFacturaPago, name="verFacturaPago"),
+    path ('descargarFactura/<int:id>',facturaviews.descargarFactura, name="descargarFactura"),
+
+
+    #crud Pagos
+
+    path('Pagos/',pagosviews.listarPagos, name="listarPagos"),
+    path ('formularioPagos/',pagosviews.formularioPagos, name="formularioPagos"),
+    path ('agregarPagos/',pagosviews.guardarPagos, name="agregarPagos"),
+    path ('buscarCotizante/',pagosviews.buscarCotizante, name="buscarCotizante"),
+
+#crud Beneficiarios
+
+    path('Beneficiario/',beneficiarioviews.listarBeneficiario, name="listarBeneficiario"),
+    path('editarBeneficiario/<int:id>',beneficiarioviews.editarBeneficiario, name="editarBeneficiario"),
+    path ('formularioBeneficiario/<int:id>',beneficiarioviews.formularioBeneficiario, name="formularioBeneficiario"),
+    path ('agregarBeneficiario/',beneficiarioviews.guardarBeneficiario, name="agregarBeneficiario"),
+    path('eliminarBeneficiario/<int:id>',beneficiarioviews.eliminarBeneficiario, name="eliminarBeneficiario"),
+
 
 
 

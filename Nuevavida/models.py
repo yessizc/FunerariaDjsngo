@@ -22,7 +22,7 @@ class Cotizante(models.Model):
     correo = models.EmailField(max_length=250,null=True,blank= True)
     fechaNacimiento = models.DateField()
     idplan = models.ForeignKey(Plan, on_delete= models.DO_NOTHING)
-   
+    deuda =models.IntegerField(null=True, default=0)
 
 
     #def __str__(self):
@@ -48,13 +48,12 @@ class Factura (models.Model):
 
     def __str__ (self):
 
-        return f"{self.idFactura} {self.metodoPago}"
+        return f"{self.fechaPago} {self.totalPago} {self.totalDeuda}"
 
 class Pagos (models.Model):
     valor = models.IntegerField()
     fechaPago = models.DateField()
     cuota =models.IntegerField()
-    deuda =models.IntegerField()
     idFactura = models.ForeignKey(Factura, on_delete= models.DO_NOTHING)
     cedulaCotizante= models.ForeignKey(Cotizante, on_delete= models.DO_NOTHING)
 
