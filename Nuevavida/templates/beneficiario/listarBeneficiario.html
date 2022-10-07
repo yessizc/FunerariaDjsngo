@@ -18,7 +18,7 @@
             <th>nombre Beneficiario</th>
             <th>apellido Beneficiario</th>
             <th>fecha Nacimiento</th>
-            <th>Nombre cotizante</th>
+            <th>Nombre usuario</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -30,7 +30,7 @@
         <td>{{t.nombreBeneficiario}}</td>
         <td>{{t.apellidoBeneficiario}}</td>
         <td>{{t.fechaNacimiento}}</td>
-        <td>{{t.cedulaCotizante.nombre}}</td>
+        <td>{{t.cedulaUsuario.nombre}}</td>
         <td><button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioBeneficiario' t.id %}">Editar</a></button>&nbsp;<button class="btn btn-danger"><a style="text-decoration: none; color:white"href="/Nuevavida/eliminarBeneficiario/{{t.id}}">Eliminar</a></button></td>
     </tr>
 

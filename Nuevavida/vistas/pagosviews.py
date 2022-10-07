@@ -16,7 +16,7 @@ from django.db import IntegrityError
 
 #para accedser a las consultas de base de datos
 
-from..models import Pagos, Factura, Cotizante
+from..models import Pagos, Factura, Usuario
 
 
 def index(request):
@@ -28,30 +28,30 @@ def listarPagos (request):
     return render(request, 'pagos/listarPagos.html',context)
 
 def formularioPagos (request):
-    p = Cotizante.objects.all()
-    context = {"Cotizantes": p}
+    p = Usuario.objects.all()
+    context = {"Usuarios": p}
     return render(request, 'pagos/agregarPagos.html',context)
 
 
 def guardarPagos (request):
     try:
         if request.method=="POST":
-            cotizante = Cotizante.objects.get(pk = request.POST["cotizante"])
-            print(cotizante.idplan.precio)
+            usuario = Usuario.objects.get(pk = request.POST["usuario"])
+            print(usuario.idplan.precio)
             print(int(request.POST["cuota"]))
-            print(cotizante.idplan.precio - int(request.POST["cuota"]))
-            cotizante.deuda = cotizante.idplan.precio - int(request.POST["cuota"])
-            cotizante.save()
+            print(usuario.idplan.precio - int(request.POST["cuota"]))
+            usuario.deuda = usuario.idplan.precio - int(request.POST["cuota"])
+            usuario.save()
             factura = Factura(
                 fechaPago = datetime.datetime.now(),
-                totalDeuda = cotizante.deuda,
+                totalDeuda = usuario.deuda,
                 totalPago = request.POST["cuota"]
             )
             factura.save()
             q = Pagos(
                 valor = request.POST["valor"],
                 fechaPago = datetime.datetime.now(),
-                cedulaCotizante= cotizante,
+                cedulaUsuario= usuario,
                 cuota = request.POST["cuota"],
                 idFactura = factura
             )
@@ -67,11 +67,11 @@ def guardarPagos (request):
         
 
 
-def buscarCotizante(request):
-    print(request.POST["cotizante"])
-    cotizante = Cotizante.objects.get(pk = request.POST["cotizante"])
-    cotizante.idplan.precio = cotizante.idplan.precio + cotizante.deuda
-    p = Cotizante.objects.all()
-    context = {"Cotizantes": p ,"Cotizante": cotizante}
+def buscarUsuario(request):
+    print(request.POST["usuario"])
+    usuario = Usuario.objects.get(pk = request.POST["usuario"])
+    usuario.idplan.precio = usuario.idplan.precio + usuario.deuda
+    p = Usuario.objects.all()
+    context = {"Usuarios": p ,"Usuario": usuario}
     return render(request, 'pagos/agregarPagos.html',context)
     

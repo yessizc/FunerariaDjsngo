@@ -12,9 +12,7 @@ class Plan (models.Model):
     caracteristicas =models.CharField(max_length=1000,null=TRUE)
 
 
-
-
-class Cotizante(models.Model):
+class Usuario(models.Model):
     cedula = models.IntegerField(unique= True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
@@ -23,17 +21,23 @@ class Cotizante(models.Model):
     fechaNacimiento = models.DateField()
     idplan = models.ForeignKey(Plan, on_delete= models.DO_NOTHING)
     deuda =models.IntegerField(null=True, default=0)
-
+    password= models.CharField(max_length=500)
+    roles=(
+        (1,"administrador"),
+        (2,"cotizante"),
+    )
+    rol= models.CharField(max_length=20,choices=roles,default=2)
 
     #def __str__(self):
         #return f"{self.nombre}"
+
 
 class Beneficiario (models.Model):
     cedulaBeneficiario= models.IntegerField(unique= True)
     nombreBeneficiario = models.CharField(max_length=100)
     apellidoBeneficiario = models.CharField(max_length=100)
     fechaNacimiento = models.DateField()
-    cedulaCotizante = models.ForeignKey(Cotizante, on_delete= models.DO_NOTHING)
+    cedulaUsuario = models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
 
     def __str__(self):
         return f"{self.nombreBeneficiario} {self.cedulaBeneficiario}"
@@ -55,11 +59,11 @@ class Pagos (models.Model):
     fechaPago = models.DateField()
     cuota =models.IntegerField()
     idFactura = models.ForeignKey(Factura, on_delete= models.DO_NOTHING)
-    cedulaCotizante= models.ForeignKey(Cotizante, on_delete= models.DO_NOTHING)
+    cedulaUsuario= models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
 
     def __str__ (self):
 
-        return f"{self.cedulaCotizante} {self.cuota} {self.deuda}"
+        return f"{self.cedulaUsuario} {self.cuota} {self.deuda}"
 
    
 

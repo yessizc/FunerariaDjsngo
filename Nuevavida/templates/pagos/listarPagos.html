@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>fechaPago</th>
-            <th>Nombre cotizante</th>
+            <th>Nombre usuario</th>
             <th>cuota</th>
             <th>valor</th>
             <th>Acciones</th>     
@@ -25,7 +25,7 @@
     {%for t in datos %}
     <tr>
         <td>{{t.fechaPago}}</td>
-        <td>{{t.cedulaCotizante.nombre}}</td>
+        <td>{{t.cedulaUsuario.nombre}}</td>
         <td>{{t.cuota}}</td>
         <td>{{t.valor}}</td>
         <td><button class="btn btn-danger"><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:verFacturaPago' t.id %}">Ver factura</a></button></td>

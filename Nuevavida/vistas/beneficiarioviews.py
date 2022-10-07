@@ -16,7 +16,7 @@ from django.db import IntegrityError
 
 #para accedser a las consultas de base de datos
 
-from..models import Beneficiario, Cotizante
+from..models import Beneficiario, Usuario
 
 
 def index(request):
@@ -31,14 +31,14 @@ def formularioBeneficiario (request, id):
     print(id)
     if id != 0:
         q = Beneficiario.objects.get(pk = id) 
-        p = Cotizante.objects.all()
+        p = Usuario.objects.all()
         q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
-        context = {"Beneficiario":q, "Cotizante": p}
+        context = {"Beneficiario":q, "Usuario": p}
         return render(request, 'beneficiario/agregarBeneficiario.html',context)
     else:
         t = {'id':id}
-        p = Cotizante.objects.all()
-        context = {"Beneficiario":t, "Cotizante": p}
+        p = Usuario.objects.all()
+        context = {"Beneficiario":t, "Usuario": p}
         return render(request,'beneficiario/agregarBeneficiario.html', context)
 
 
@@ -50,7 +50,7 @@ def guardarBeneficiario (request):
                 nombreBeneficiario = request.POST["nombreBeneficiario"],
                 apellidoBeneficiario = request.POST["apellidoBeneficiario"],
                 fechaNacimiento = datetime.datetime.strptime(request.POST["fechaNacimiento"],"%Y-%m-%d").date(),
-                cedulaCotizante = Cotizante.objects.get(pk = request.POST["idCotizante"]),
+                cedulaUsuario = Usuario.objects.get(pk = request.POST["idUsuario"]),
                 
                 
             )
@@ -71,7 +71,7 @@ def guardarBeneficiario (request):
 
 
 def editarBeneficiario (request, id):
-    print(request.POST["idCotizante"])
+    print(request.POST["idUsuario"])
     try :
         if request.method=="POST":
             beneficiario =Beneficiario.objects.get(pk = id)
@@ -80,7 +80,7 @@ def editarBeneficiario (request, id):
             beneficiario.nombreBeneficiario = request.POST["nombreBeneficiario"]
             beneficiario.apellidoBeneficiario = request.POST["apellidoBeneficiario"]
             beneficiario.fechaNacimiento = datetime.datetime.strptime(request.POST["fechaNacimiento"],"%Y-%m-%d").date()
-            beneficiario.cedulaCotizante= Cotizante.objects.get(pk = request.POST["idCotizante"])
+            beneficiario.cedulaUsuario= Usuario.objects.get(pk = request.POST["idUsuario"])
             
             beneficiario.save()
             messages.success(request," El beneficiario fue editado correctamente!")

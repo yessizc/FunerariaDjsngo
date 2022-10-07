@@ -1,5 +1,6 @@
 import datetime
 from email.policy import HTTP
+import hashlib
 from multiprocessing import context
 from time import strftime
 from django.shortcuts import render, redirect
@@ -15,49 +16,53 @@ from django.db import IntegrityError
 
 #para accedser a las consultas de base de datos
 
-from..models import Cotizante, Plan
+from..models import Usuario, Plan
 
+def encryptPass(password):
+    password = password.encode('utf-8')
+    return hashlib.sha512(password).hexdigest()
 
 def index(request):
     return render (request,'index.html')
 
-def listarCotizante (request):
-    q = Cotizante.objects.all() #DICCIONARIO CON LOS DATOS 
+def listarUsuario (request):
+    q = Usuario.objects.all() #DICCIONARIO CON LOS DATOS 
     context = {"datos":q}
-    return render(request, 'cotizante/listarCotizante.html',context)
+    return render(request, 'usuario/listarUsuario.html',context)
 
-def formularioCotizante (request, id):
+def formularioUsuario (request, id):
     print(id)
     if id != 0:
-        q = Cotizante.objects.get(pk = id) 
+        q = Usuario.objects.get(pk = id) 
         p = Plan.objects.all()
         q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
         print(q.fechaNacimiento)
-        context = {"Cotizante":q, "Planes" : p}
-        return render(request, 'cotizante/agregarCotizante.html',context)
+        context = {"Usuario":q, "Planes" : p}
+        return render(request, 'usuario/agregarUsuario.html',context)
     else:
         t = {'id':id}
         p = Plan.objects.all()
-        context = {"Cotizante":t, "Planes" : p}
-        return render(request,'cotizante/agregarCotizante.html', context)
+        context = {"Usuario":t, "Planes" : p}
+        return render(request,'usuario/agregarUsuario.html', context)
 
 
-def guardarCotizante (request):
+def guardarUsuario (request):
     print(request.POST["telefono"])
     try:
         if request.method=="POST":
-            q = Cotizante(
+            q = Usuario(
                 cedula = request.POST["cedula"],
                 nombre = request.POST["nombre"],
                 apellido = request.POST["apellido"],
                 telefono = request.POST["telefono"],
                 correo = request.POST["correo"],
+                password = encryptPass(request.POST['password']),
                 idplan = Plan.objects.get(pk = request.POST["idPlan"]),
                 fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
             )
             q.save()
         #si todo esta bien.
-            messages.success(request," El Cotizante fue guardado correctamente!")
+            messages.success(request," El Usuario fue guardado correctamente!")
             #messages.info(request," probando info!")
             #messages.warning(request," probando warning!")
             #messages.debug(request," probando debug")
@@ -68,43 +73,44 @@ def guardarCotizante (request):
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarCotizante')
+    return redirect('Nuevavida:listarUsuario')
 
 
-def editarCotizante (request, id):
+def editarUsuario (request, id):
     print(request.POST["idPlan"])
     try :
         if request.method=="POST":
 
-            cotizante = Cotizante.objects.get(pk = id)
-            cotizante.cedula = request.POST["cedula"]
-            cotizante.nombre = request.POST ["nombre"]
-            cotizante.apellido = request.POST["apellido"]
-            cotizante.telefono = request.POST["telefono"]
-            cotizante.correo = request.POST["correo"]
-            cotizante.idplan = Plan.objects.get(pk = request.POST["idPlan"])
-            cotizante.fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
-            cotizante.save()
-            messages.success(request," El Cotizante fue editado correctamente!")
+            usuario = Usuario.objects.get(pk = id)
+            usuario.cedula = request.POST["cedula"]
+            usuario.nombre = request.POST ["nombre"]
+            usuario.apellido = request.POST["apellido"]
+            usuario.telefono = request.POST["telefono"]
+            usuario.correo = request.POST["correo"]
+            usuario.idplan = Plan.objects.get(pk = request.POST["idPlan"])
+            usuario.password = encryptPass(request.POST['password']) 
+            usuario.fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
+            usuario.save()
+            messages.success(request," El Usuario fue editado correctamente!")
 
         else:
             messages.warning(request,"no se han eviado los datos correctamente...")
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarCotizante')
+    return redirect('Nuevavida:listarUsuario')
 
 
-def eliminarCotizante (request, id):
+def eliminarUsuario (request, id):
     try:
-        cotizante = Cotizante.objects.get(pk = id)
-        cotizante.delete()
-        messages.success(request," El Cotizante se ha eliminado correctamente!")
+        usuario = Usuario.objects.get(pk = id)
+        usuario.delete()
+        messages.success(request," El Usuario se ha eliminado correctamente!")
 
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarCotizante')
+    return redirect('Nuevavida:listarUsuario')
 
 
 

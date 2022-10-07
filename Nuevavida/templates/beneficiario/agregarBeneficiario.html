@@ -11,16 +11,16 @@
     {% csrf_token %}
     <input type="hidden" name="id" value="{{Beneficiario.id}}">
     <div class="form-group">
-        <label for="fname">Cotizante:</label><br>
-        <select class="form-control" onchange="validarPlan()" name="idCotizante" id="idCotizante">
+        <label for="fname">Usuario:</label><br>
+        <select class="form-control" onchange="validarPlan()" name="idUsuario" id="idUsuario">
             <option value="0">Seleccione</option>
-            {% if Cotizante %}
-                {% for cotizante in Cotizante %}
+            {% if Usuario %}
+                {% for usuario in Usuario %}
                 
-                    {% if cotizante.id == Beneficiario.cedulaCotizante_id  %}
-                        <option value="{{cotizante.id}}" selected >{{cotizante.nombre}} - Plan:{{cotizante.idplan.nombrePlan}}</option>
+                    {% if usuario.id == Beneficiario.cedulaUsuario_id  %}
+                        <option value="{{usuario.id}}" selected >{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
                     {% else %}
-                        <option value="{{cotizante.id}}">{{cotizante.nombre}} - Plan:{{cotizante.idplan.nombrePlan}}</option>
+                        <option value="{{usuario.id}}">{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
                     {% endif %}
                 {% endfor %}
             {% endif %} 

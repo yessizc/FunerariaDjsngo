@@ -1,2 +1,2 @@
-from .cotizanteviews import *
+from .usuarioviews import *
 from .planviews import*

@@ -17,7 +17,7 @@ from django.db import IntegrityError
 
 #para accedser a las consultas de base de datos
 
-from..models import Cotizante, Factura, Pagos
+from..models import Usuario, Factura, Pagos
 
 
 def index(request):
@@ -31,16 +31,16 @@ def listarFactura (request):
 
 def verFactura (request, id):
     f = Factura.objects.get(pk = id)
-    p = list(Pagos.objects.filter(idFactura = id).values('cedulaCotizante'))
-    c = Cotizante.objects.get(pk = p[0]["cedulaCotizante"])
-    context = {"Factura":f, "Pago" : p, "Cotizante" : c}
+    p = list(Pagos.objects.filter(idFactura = id).values('cedulaUsuario'))
+    c = Usuario.objects.get(pk = p[0]["cedulaUsuario"])
+    context = {"Factura":f, "Pago" : p, "Usuario" : c}
     return render(request, 'factura/verFactura.html',context)
 
 def verFacturaPago(request, id):
     p = Pagos.objects.get(pk = id)
     f = Factura.objects.get(pk = p.idFactura.id)
-    c = Cotizante.objects.get(pk = p.cedulaCotizante.id)
-    context = {"Factura":f, "Pago" : p, "Cotizante" : c}
+    c = Usuario.objects.get(pk = p.cedulaUsuario.id)
+    context = {"Factura":f, "Pago" : p, "Usuario" : c}
     return render(request, 'factura/verFactura.html',context)
 
 

@@ -1,18 +1,18 @@
 from django.contrib import admin
-from .models import Cotizante, Plan,  Factura, Beneficiario, Pagos
+from .models import Usuario, Plan,  Factura, Beneficiario, Pagos
 
 
 # Register your models here.
 
-@admin.register(Cotizante) #decorador
-class CotizanteAdmin (admin.ModelAdmin):
+@admin.register(Usuario) #decorador
+class UsuarioAdmin (admin.ModelAdmin):
     list_display =('cedula','nombre','apellido','correo','telefono','fechaNacimiento','deuda') 
     search_fields=['nombre', 'cedula','deuda'] 
 
 
 @admin.register(Beneficiario)
 class BeneficiarioAdmin (admin.ModelAdmin):
-    list_display = ('cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaCotizante')
+    list_display = ('cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaUsuario')
     search_fields =['nombreBeneficiario','cedulaBeneficiario']
 
 
@@ -34,8 +34,8 @@ class FacturaAdmin(admin.ModelAdmin):
 
 @admin.register(Pagos)
 class PagosAdmin (admin.ModelAdmin):
-    list_display = ('valor','fechaPago','cuota','idFactura','cedulaCotizante')
-    search_fields = ['cedulaCotizante','fechaPago','valor']
+    list_display = ('valor','fechaPago','cuota','idFactura','cedulaUsuario')
+    search_fields = ['cedulaUsuario','fechaPago','valor']
 
 
 
