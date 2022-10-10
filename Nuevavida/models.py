@@ -63,7 +63,7 @@ class Pagos (models.Model):
 
     def __str__ (self):
 
-        return f"{self.cedulaUsuario} {self.cuota} {self.deuda}"
+        return f"{self.cedulaUsuario} {self.cuota}"
 
    
 

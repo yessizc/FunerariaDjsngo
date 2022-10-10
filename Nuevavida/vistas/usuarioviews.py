@@ -23,27 +23,55 @@ def encryptPass(password):
     return hashlib.sha512(password).hexdigest()
 
 def index(request):
-    return render (request,'index.html')
+    context = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser']}
+        context = {"sesion" : permisos}
+    return render (request,'index.html', context)
 
 def listarUsuario (request):
-    q = Usuario.objects.all() #DICCIONARIO CON LOS DATOS 
-    context = {"datos":q}
-    return render(request, 'usuario/listarUsuario.html',context)
+    permisos = {}
+    q = None
+    if "rol" in request.session:
+        if request.session["rol"] == '1':
+            q = Usuario.objects.all()
+        else:
+            us = Usuario.objects.get(pk = request.session["idUser"])
+            q = [us]
+        
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']} 
+        context = {"datos":q, "sesion":permisos}
+        return render(request, 'usuario/listarUsuario.html',context)
+    else:
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html')
 
 def formularioUsuario (request, id):
+    permisos = {}
     print(id)
     if id != 0:
         q = Usuario.objects.get(pk = id) 
         p = Plan.objects.all()
         q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
         print(q.fechaNacimiento)
-        context = {"Usuario":q, "Planes" : p}
-        return render(request, 'usuario/agregarUsuario.html',context)
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Usuario":q, "Planes" : p, "sesion" : permisos}
+            return render(request, 'usuario/agregarUsuario.html',context)
+        else:
+            messages.warning(request,"para ingresar debe iniciar sesion...")
+            return render (request,'index.html') 
     else:
         t = {'id':id}
         p = Plan.objects.all()
-        context = {"Usuario":t, "Planes" : p}
-        return render(request,'usuario/agregarUsuario.html', context)
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Usuario":t, "Planes" : p, "sesion" : permisos}
+            return render(request,'usuario/agregarUsuario.html', context)
+        else:
+            messages.warning(request,"para ingresar debe iniciar sesion...")
+            return render (request,'index.html') 
 
 
 def guardarUsuario (request):

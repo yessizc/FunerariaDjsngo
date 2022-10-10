@@ -20,17 +20,48 @@ from..models import Pagos, Factura, Usuario
 
 
 def index(request):
-    return render (request,'index.html')
+    context = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        context = {"sesion" : permisos}
+    return render (request,'index.html', context)
 
 def listarPagos (request):
-    q = Pagos.objects.all() #DICCIONARIO CON LOS DATOS 
-    context = {"datos":q}
+    permisos = {}
+    q = None
+    if "rol" in request.session:
+        if request.session["rol"] == '1':
+            q = Pagos.objects.all() #DICCIONARIO CON LOS DATOS 
+        else:
+            us = Pagos.objects.get(cedulaUsuario = request.session["idUser"])
+            q = [us]
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+    else:
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html')        
+    
+    context = {"datos":q,"sesion":permisos}
     return render(request, 'pagos/listarPagos.html',context)
 
+
 def formularioPagos (request):
-    p = Usuario.objects.all()
-    context = {"Usuarios": p}
-    return render(request, 'pagos/agregarPagos.html',context)
+    permisos = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        p = Usuario.objects.all()
+        context = {"Usuarios": p, "sesion": permisos}
+        return render(request, 'pagos/agregarPagos.html',context)
+    else:
+        t = {'id':id}
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Plan":t, "sesion":permisos}
+            return render(request,'planes/agregarPlan.html', context)
+        else:
+            messages.warning(request,"para ingresar debe iniciar sesion...")
+            return render (request,'index.html') 
+
 
 
 def guardarPagos (request):

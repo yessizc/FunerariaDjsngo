@@ -20,26 +20,49 @@ from..models import Beneficiario, Usuario
 
 
 def index(request):
-    return render (request,'index.html')
+    context = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        context = {"sesion" : permisos}
+    return render (request,'index.html', context)
+    
 
 def listarBeneficiario (request):
-    q = Beneficiario.objects.all() #DICCIONARIO CON LOS DATOS 
-    context = {"datos":q}
-    return render(request, 'beneficiario/listarBeneficiario.html',context)
+    permisos = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        q = Beneficiario.objects.all() #DICCIONARIO CON LOS DATOS 
+        context = {"datos":q, "sesion":permisos}
+        return render(request, 'beneficiario/listarBeneficiario.html',context)
+    else:
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html')
+    
 
 def formularioBeneficiario (request, id):
+    permisos = {}
     print(id)
     if id != 0:
         q = Beneficiario.objects.get(pk = id) 
         p = Usuario.objects.all()
         q.fechaNacimiento = q.fechaNacimiento.strftime('%Y-%m-%d')
-        context = {"Beneficiario":q, "Usuario": p}
-        return render(request, 'beneficiario/agregarBeneficiario.html',context)
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Beneficiario":q, "Usuario": p,"sesion" : permisos}
+            return render(request, 'beneficiario/agregarBeneficiario.html',context)
+        else:
+            messages.warning(request,"para ingresar debe iniciar sesion...")
+            return render (request,'index.html') 
     else:
         t = {'id':id}
         p = Usuario.objects.all()
-        context = {"Beneficiario":t, "Usuario": p}
-        return render(request,'beneficiario/agregarBeneficiario.html', context)
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Beneficiario":t, "Usuario": p, "sesion":permisos}
+            return render(request,'beneficiario/agregarBeneficiario.html', context)
+        else:
+            messages.warning(request,"para ingresar debe iniciar sesion...")
+            return render (request,'index.html') 
 
 
 def guardarBeneficiario (request):

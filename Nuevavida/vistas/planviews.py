@@ -19,23 +19,44 @@ from..models import Plan
 
 
 def index(request):
-    return render (request,'index.html')
+    context = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        context = {"sesion" : permisos}
+    return render (request,'index.html', context)
 
 def listarPlan (request):
-    q = Plan.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
-    context = {"datos":q}
-    return render(request, 'planes/listarPlan.html',context)
+    permisos = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        q = Plan.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
+        context = {"datos":q, "sesion":permisos}
+        if  request.session['rol'] == "1":
+            return render(request, 'planes/listarPlan.html',context)
+        else:
+            messages.warning(request,"USTED NO TIENE PERMISOS PARA ACCEDER A ESTE MODULO")
+            return render (request,'index.html', context) 
+    else:
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html') 
 
 def formularioPlan (request, id):
-    print(id)
-    if id != 0:
-        q = Plan.objects.get(pk = id) 
-        context = {"Plan":q}
-        return render(request, 'planes/agregarPlan.html',context)
+    permisos = {}
+    if "idUser" in request.session:
+        permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        if id != 0:
+            q = Plan.objects.get(pk = id) 
+            context = {"Plan":q, "sesion":permisos}
+            return render(request, 'planes/agregarPlan.html',context)
+        else:
+            t = {'id':id}
+            if "idUser" in request.session:
+                permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+            context = {"Plan":t, "sesion":permisos}
+            return render(request,'planes/agregarPlan.html', context)
     else:
-        t = {'id':id}
-        context = {"Plan":t}
-        return render(request,'planes/agregarPlan.html', context)
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html') 
 
 
 def guardarPlan (request):

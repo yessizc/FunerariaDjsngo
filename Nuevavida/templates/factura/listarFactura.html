@@ -13,6 +13,7 @@
 <table class="table table-striped table-hover" border="2px" id="tableFactura">
     <thead>
         <tr>
+            <th>Nombre</th>
             <th>fecha Pago</th>
             <th>total Deuda</th>
             <th>total Pago</th>
@@ -23,6 +24,11 @@
 
     {%for t in datos %}
     <tr>
+        {% if usuario %}
+        <td>{{usuario.nombre}}</td>
+        {% else %}
+        <td>{{t.nombre}}</td>
+        {% endif %}
         <td>{{t.fechaPago}}</td>
         <td>{{t.totalDeuda}}</td>
         <td>{{t.totalPago}}</td>

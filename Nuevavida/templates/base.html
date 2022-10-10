@@ -34,9 +34,11 @@
                     <li class="nav-item">
                         
                     </li>
+                    {% if sesion.rol == '1' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'Nuevavida:listarPlan'%}">Planes</a>
                     </li>
+                    {% endif %}
                     <!--<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Planes
@@ -51,6 +53,8 @@
                         
                         </ul>
                     </li>-->
+                    {% if sesion.rol == '1' or sesion.rol == '2'%}
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'Nuevavida:listarUsuario'%}">Usuarios</a>
                     </li>
@@ -65,24 +69,63 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'Nuevavida:listarFactura'%}">Facturas</a>
                     </li>
-
-
+                    {% endif %}
                 </ul>
-                <form class="d-flex" role="search">
+                {% if sesion.rol == '1' or sesion.rol == '2'%}
+                <label style="color:blue; margin-right: 25%;" class="nav-link">Bienvenid@ {{sesion.userName}}</label>
+                {% endif %}
+                <!--<form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar">
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>-->
+                {% if sesion.rol != '1' and sesion.rol != '2'%}
+                <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
+                {% else %}
+                <form action="{% url 'Nuevavida:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" >Logout</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </nav>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form action="{% url 'Nuevavida:login' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label for="correo">Correo</label>
+                    <input class="form-control" id="correo" name="correo"><br>
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" class="form-control" id="contraseña" name="password">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Login</button> </div> 
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
     <div class="container"><br>
         {%block contenedor%} -------- {%endblock%}
     </div>
-
 
 
     <script src="{% static 'js/popper.min.js'%}"></script>
     <script src="{% static 'js/libreria.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/jquery-3.6.1.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
     <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
