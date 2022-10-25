@@ -45,5 +45,7 @@ def logout (request):
         del request.session['userName']
     except Exception as e:
         print(request,f"error: {e}")
-    return render(request,'index.html')
+    return redirect('Nuevavida:index')
+
+
 

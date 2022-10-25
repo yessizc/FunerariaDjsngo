@@ -43,22 +43,20 @@ def listarFactura (request):
                 "totalDeuda" : f.totalDeuda,
                 "totalPago" : f.totalPago,
                 "id" : f.pk})
-            else:
-                facturas = []
-                pagos = []
-                pagos.append(Pagos.objects.get(cedulaUsuario_id = request.session["idUser"]))
-                for p in pagos:
-                    facturas.append(Factura.objects.get(pk = p.idFactura.id))
-                print("facturas "+str(len(facturas)))
-                q = facturas
-                u = Usuario.objects.get(pk = request.session['idUser'])
-            if "idUser" in request.session:
-                permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-            context = {"datos":q,"sesion":permisos, "usuario" : u}
-            return render(request, 'factura/listarFactura.html',context)
         else:
-            messages.warning(request,"USTED NO TIENE PERMISOS PARA ACCEDER A ESTE MODULO")
-            return render (request,'index.html', context) 
+            facturas = []
+            pagos = []
+            pagos.append(Pagos.objects.get(cedulaUsuario_id = request.session["idUser"]))
+            for p in pagos:
+                facturas.append(Factura.objects.get(pk = p.idFactura.id))
+            print("facturas "+str(len(facturas)))
+            q = facturas
+            u = Usuario.objects.get(pk = request.session['idUser'])
+        if "idUser" in request.session:
+            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
+        context = {"datos":q,"sesion":permisos, "usuario" : u}
+        return render(request, 'factura/listarFactura.html',context)
+    
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')

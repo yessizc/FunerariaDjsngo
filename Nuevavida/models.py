@@ -1,5 +1,8 @@
 from datetime import date
+from distutils.command.upload import upload
 from pickle import TRUE
+from pyexpat import model
+from unittest.util import _MAX_LENGTH
 
 
 from django.db import models
@@ -27,6 +30,7 @@ class Usuario(models.Model):
         (2,"cotizante"),
     )
     rol= models.CharField(max_length=20,choices=roles,default=2)
+    #foto=model.models.ImageField(upload_to='Nuevavida/fotos'default='Nuevavida/fotos/default.jpg')
 
     #def __str__(self):
         #return f"{self.nombre}"
