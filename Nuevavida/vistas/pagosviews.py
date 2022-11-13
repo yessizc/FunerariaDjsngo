@@ -48,7 +48,10 @@ def formularioPagos (request):
     permisos = {}
     if "idUser" in request.session:
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-        p = Usuario.objects.all()
+        if request.session["rol"]=='1':
+            p = Usuario.objects.all()
+        else:
+            p=Usuario.objects.filter(pk=request.session["idUser"])
         context = {"Usuarios": p, "sesion": permisos}
         return render(request, 'pagos/agregarPagos.html',context)
     else:

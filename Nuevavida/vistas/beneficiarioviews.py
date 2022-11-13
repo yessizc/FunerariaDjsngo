@@ -31,7 +31,11 @@ def listarBeneficiario (request):
     permisos = {}
     if "idUser" in request.session:
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-        q = Beneficiario.objects.all() #DICCIONARIO CON LOS DATOS 
+        if request.session["rol"]== "1":
+            q = Beneficiario.objects.all() #DICCIONARIO CON LOS DATOS 
+        else:
+            bf = Beneficiario.objects.filter(cedulaUsuario = request.session["idUser"])
+            q = [bf][0]
         context = {"datos":q, "sesion":permisos}
         return render(request, 'beneficiario/listarBeneficiario.html',context)
     else:
