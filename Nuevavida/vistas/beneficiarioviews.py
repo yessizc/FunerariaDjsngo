@@ -25,6 +25,13 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+
+"""Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+Args:
+context:este trae el objeto sesion
+permisos:trae el rol
+
+"""
     
 
 def listarBeneficiario (request):
@@ -41,7 +48,7 @@ def listarBeneficiario (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')
-    
+    """"""
 
 def formularioBeneficiario (request, id):
     permisos = {}
