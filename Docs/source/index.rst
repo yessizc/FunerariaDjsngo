@@ -3,17 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to NuevaVida's documentation!
-=====================================
-**Esta es la documentacion de mi proyecto de grados**
+Bienvenidos a la documentacion de la funeraria NuevaVida!
+=========================================================
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
-
-
-Indices and tables
-==================
+.. automodule:: models
+   :members:
+   :private-members:
+   
+Indices y tablas
+=================
 
 * :ref:`genindex`
 * :ref:`modindex`
