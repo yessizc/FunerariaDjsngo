@@ -92,13 +92,13 @@
         
         background-color: #001259;
     }
-    navbar div,a{
+    .navbar div a{
         color: white;
     }
 
     #footer{
         background-color: #001259;
-        position: absolute;
+        position: relative;
         bottom: 0;
         width: 100%;
         text-align: center;
@@ -109,7 +109,7 @@
     }
     
     #contenido-footer{
-        text-align: left;
+        text-align: center;
     }
     
     #escrito-footer{

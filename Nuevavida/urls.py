@@ -1,6 +1,6 @@
 from django.urls import path
 from Nuevavida.models import Usuario
-from .vistas import usuarioviews, planviews, facturaviews, pagosviews, beneficiarioviews,loginview
+from .vistas import usuarioviews, planviews, facturaviews, pagosviews, beneficiarioviews,loginview, restablecerviews
 
 
 
@@ -56,6 +56,13 @@ urlpatterns = [
 path('login/',loginview.login, name="login"),
 path('logout/',loginview.logout, name="logout"),
 
+
+#restablecer
+
+path('restablecer/',restablecerviews.restablecer, name="restablecer"),
+path('showRestablecer/',restablecerviews.showRestablecer, name="showRestablecer"),
+path('restablecerPassword/<int:id>', restablecerviews.cambiarPassword, name="restablecerPassword"),
+path('cambiarPws/', restablecerviews.cambiarPws, name="cambiarPws")
 
 
 
