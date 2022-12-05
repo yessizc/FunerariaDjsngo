@@ -38,8 +38,13 @@
                         </li>
                         {% if sesion.rol == '1' %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarDetalle'%}">Detalles Funeral</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'Nuevavida:listarPlan'%}">Planes</a>
                         </li>
+                        
                         {% endif %}
                         <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,21 +76,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'Nuevavida:listarFactura'%}">Facturas</a>
                         </li>
+                        
                         {% endif %}
                     </ul>
                     {% if sesion.rol == '1' or sesion.rol == '2'%}
-                    <label style="margin-right: 25%;" class="nav-link">Bienvenid@ {{sesion.userName}}</label>
+                    <label style="margin-right: 25%;" class="nav-link" id="bienvenida">Bienvenid@ {{sesion.userName}}</label>
                     {% endif %}
                     <!--<form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>-->
                     {% if sesion.rol != '1' and sesion.rol != '2'%}
-                    <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
+                    <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="iniSesion">Iniciar sesion</button>
                     {% else %}
                     <form action="{% url 'Nuevavida:logout' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary" >Logout</button>
+                        <button type="submit" class="btn btn-primary" id="cerrarSesion">Cerrar sesion</button>
                     </form>
                     {% endif %}
                 </div>
@@ -97,7 +103,7 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <h5 class="modal-title" id="exampleModalLabel">INICIAR SESION</h5>
                 <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -105,16 +111,16 @@
                 <form action="{% url 'Nuevavida:login' %}" method="post">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <label for="correo" id="exampleModalLabel">Correo</label>
+                        <label for="correo">Correo</label>
                         <input class="form-control" id="correo" name="correo"><br>
-                        <label for="contraseña" id="exampleModalLabel">Contraseña</label>
+                        <label for="contraseña">Contraseña</label>
                         <input type="password" class="form-control" id="contraseña" name="password"><br>
                         <div style="text-align: center;"><a style="color:blue" href="{% url 'Nuevavida:showRestablecer'%}"for="correo" id="exampleModalLabel">Ha olvidado su contraseña</a></div>
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" >Login</button> </div> 
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cansesion">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="iniciosesion">Iniciar sesion</button> </div> 
                     </div>
                 </form>
             </div>

@@ -53,8 +53,8 @@ class Usuario(models.Model):
     """
     #foto=model.models.ImageField(upload_to='Nuevavida/fotos'default='Nuevavida/fotos/default.jpg')
 
-    #def __str__(self):
-        #return f"{self.nombre}"
+    def __str__(self):
+        return f"{self.nombre}"
 
 
 class Beneficiario (models.Model):
@@ -116,10 +116,22 @@ class Pagos (models.Model):
     cedulaUsuario:'entero'
     
     """
-
-   
-
-
+class DetalleFuneral(models.Model):
+    nombreDifunto = models.CharField(max_length=100)
+    cedulaDifunto = models.IntegerField()
+    fechaEntierro = models.DateField()
+    lugarEntierro = models.CharField(max_length=100)
+    fechaVelacion = models.DateField()
+    lugarVelacion = models.CharField(max_length=100)
+    Tipo=(
+        ('Cotizante','Cotizante'),
+        ('Beneficiario','Beneficiario'),
+    )
+    tipoUsuario= models.CharField(max_length=20,choices=Tipo)
+    cedulaUsuario = models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
+    
+    def __str__ (self):
+        return f"{self.nombreDifunto}"
 
 
 def calcularEdad(self): 

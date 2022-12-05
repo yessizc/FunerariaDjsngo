@@ -1,4 +1,4 @@
-*{
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,7 +9,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 280vh;
-    color: white;
     }
     
     h1{
@@ -124,7 +123,151 @@
         background-size: cover;
         min-height: 100vh;
     }
+
+/*Index*/
+
+    #bienvenida{
+        color: white;
+        text-transform: uppercase;
+    }
+
+    #iniSesion{
+        background-color: #001259;
+        border-color: black;
+        color: white;
+    }
+
+    #iniSesion:hover{
+        background-color: white;
+        color: #001259;
+    }
+
+    #cerrarSesion{
+        background-color: #001259;
+        border-color: black;
+        color: white;
+    }
+
+    #cerrarSesion:hover{
+        background-color: white;
+        color: #001259;
+    }
+
+/*Ventana modal de sesion*/
+
     #exampleModalLabel{
-        color: black;
+        color: white;
+    }
+
+    .modal-header{
+        background-color: #001259;
+    }
+
+    #cansesion{
+        background-color: darkred;
+    }
+
+    #cansesion:hover{
+        background-color: white;
+        color: darkred;
+    }
+
+    #iniciosesion{
+        background-color: #001259;
+    }
+
+    #iniciosesion:hover{
+        background-color: white;
+        color: #001259;
+    }
+
+/*recuperar contraseña*/
+
+    #restablecer{
+        background-color: #001259;
+        border-color: white;
+        color: white;
+    }
+
+    #restablecer:hover{
+        background-color: white;
+        color: #001259;
     }
     
+/*Botones de guardar, agregar, editar y eliminar*/
+
+    #agregar{
+        border-color: white;
+        background-color: #001259;
+    }
+
+    #agregar:hover{
+        background-color: white;
+        color: #001259;
+        border-color: black;
+    }
+
+    #editar{
+        border-color: white;
+        background-color: #001259;
+    }
+
+    #editar:hover{
+        background-color: white;
+        border-color: black;
+    }
+
+    #infoeditar{
+        color: white;
+        text-decoration: none;
+    }
+
+    #infoeditar:hover{
+        color: #001259;
+        text-decoration: none;
+    }
+
+    #eliminar{
+        border-color: white;
+        background-color: darkred;
+    }
+
+    #eliminar:hover{
+        border-color: darkred;
+        background-color: white;
+    }
+
+    #infoeliminar{
+        color: white;
+        text-decoration: none;
+    }
+
+    #infoeliminar:hover{
+        color: darkred;
+        text-decoration: none;
+    }
+
+    #guardar,#btnSave{
+        background-color: #001259;
+        color: white;
+        border-color: white;
+    }
+
+    #guardar:hover,#btnSave:hover{
+        background-color: white;
+        color: #001259;
+        border-color: #001259;
+    }
+
+/*Factura*/
+
+    #descargar{
+        background-color: darkred;
+        border-color: white;
+    }
+
+    #descargar:hover{
+        background-color: white;
+        border-color: darkred;
+        color: darkred;
+    }

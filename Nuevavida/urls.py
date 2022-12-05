@@ -1,5 +1,6 @@
 from django.urls import path
 from Nuevavida.models import Usuario
+from Nuevavida.vistas import detalleviews
 from .vistas import usuarioviews, planviews, facturaviews, pagosviews, beneficiarioviews,loginview, restablecerviews
 
 
@@ -10,7 +11,7 @@ app_name= "Nuevavida"
 urlpatterns = [
     path('', usuarioviews.index,name="index"), 
 
-    # crud usuarios
+    # crud Usuarios
     
     path('Usuario/',usuarioviews.listarUsuario, name="listarUsuario"),
     path('editarUsuario/<int:id>',usuarioviews.editarUsuario, name="editarUsuario"),
@@ -44,13 +45,21 @@ urlpatterns = [
     path ('agregarPagos/',pagosviews.guardarPagos, name="agregarPagos"),
     path ('buscarUsuario/',pagosviews.buscarUsuario, name="buscarUsuario"),
 
-#crud Beneficiarios
+    #crud Beneficiarios
 
     path('Beneficiario/',beneficiarioviews.listarBeneficiario, name="listarBeneficiario"),
     path('editarBeneficiario/<int:id>',beneficiarioviews.editarBeneficiario, name="editarBeneficiario"),
     path ('formularioBeneficiario/<int:id>',beneficiarioviews.formularioBeneficiario, name="formularioBeneficiario"),
     path ('agregarBeneficiario/',beneficiarioviews.guardarBeneficiario, name="agregarBeneficiario"),
     path('eliminarBeneficiario/<int:id>',beneficiarioviews.eliminarBeneficiario, name="eliminarBeneficiario"),
+
+    #crud DetalleFuneral
+
+    path('Detalle/',detalleviews.listarDetalle, name="listarDetalle"),
+    path('editarDetalle/<int:id>',detalleviews.editarDetalle, name="editarDetalle"),
+    path ('formularioDetalle/<int:id>',detalleviews.formularioDetalle, name="formularioDetalle"),
+    path ('agregarDetalle/',detalleviews.guardarDetalle, name="guardarDetalle"),
+    path('eliminarDetalle/<int:id>',detalleviews.eliminarDetalle, name="eliminarDetalle"),
 
 #login
 path('login/',loginview.login, name="login"),

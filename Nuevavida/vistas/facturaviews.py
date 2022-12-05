@@ -21,7 +21,7 @@ from..models import Usuario, Factura, Pagos
 
 
 def index(request):
-    ontext = {}
+    context = {}
     if "idUser" in request.session:
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
