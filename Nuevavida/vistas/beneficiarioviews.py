@@ -48,7 +48,13 @@ def listarBeneficiario (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')
-    """"""
+    """Esta funcion es la encargada de de listar todos los beneficiarios registrados en el sistema
+    Args:
+    q:Esta variable trae a todo el objeto beneficiario
+    permisos:Esta variable trae el rol
+    context:Esta variable trae el objeto sesion
+    bf:Esta variable trae el id del usuario para los permisos
+    """
 
 def formularioBeneficiario (request, id):
     permisos = {}
@@ -74,7 +80,13 @@ def formularioBeneficiario (request, id):
         else:
             messages.warning(request,"para ingresar debe iniciar sesion...")
             return render (request,'index.html') 
-
+    """Esta funcion es la encargada de mostrar el formulario para registrar a un usuario
+    Args:
+    q:Esta variable trae a todo el objeto beneficiario
+    p:Esta variable trae todo el objeto usuario
+    permisos:Esta variable trae el rol del usuario
+    context:Esta variable trae el objeto sesion
+    """
 
 def guardarBeneficiario (request):
     try:
@@ -102,7 +114,10 @@ def guardarBeneficiario (request):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarBeneficiario')
-
+    """Esta funcion es la encargada de guardar los datos del beneficiario enviados por medio del formulario 
+    Args:
+    q:Esta variable nos guarda los datos que enviamos del formulario
+    """
 
 def editarBeneficiario (request, id):
     print(request.POST["idUsuario"])
@@ -125,7 +140,10 @@ def editarBeneficiario (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarBeneficiario')
-
+    """Esta funcion es la encargada de permitirnos editar los datos del beneficiario
+    Args:
+    beneficiario:Esta variable es la que trae todos los datos del beneficiario y poder mostrarlos en el formulario
+    """
 
 def eliminarBeneficiario (request, id):
     try:
@@ -137,7 +155,10 @@ def eliminarBeneficiario (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarBeneficiario')
-
+    """Esta funcion es la encargada de permitirnos borrar a un beneficiario
+    Args:
+    beneficiario:Esta variable es la que trae el objeto beneficiario 
+    """
 
 
 

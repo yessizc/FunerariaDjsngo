@@ -26,6 +26,12 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+    """Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def listarFactura (request):
     permisos = {}
@@ -61,7 +67,17 @@ def listarFactura (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')
+    """Esta funcion nos permite listar Todas las facturas guardada en la base de datos
+    Args:
+    pagos:Esta variable nos trae los pagos registrados con la cedula del usuario
+    u:Esta variable nos trae el objeto usuario
+    us:Esta variale nos trae la cedula del usuario
+    fs:Esta variable nos trae a todo el objeto factura
+    q:Esta variable nos trae la lista de lo que se muestra en la factura
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
     
 
 def verFactura (request, id):
@@ -77,6 +93,14 @@ def verFactura (request, id):
     else:
         messages.warning(request,"USTED NO TIENE PERMISOS PARA ACCEDER A ESTE MODULO")
         return render (request,'index.html', context) 
+    """Esta funcion nos permite listar Todas las facturas guardada en la base de datos
+    Args:
+    f:Esta VAriable nos trae el id del objeto factura
+    p:Esta variable nos filtra las facturas dependiendo de la cedula del usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def verFacturaPago(request, id):
     permisos = {}

@@ -7,6 +7,11 @@ from..models import Usuario
 def encryptPass(password):
     password = password.encode('utf-8')
     return hashlib.sha512(password).hexdigest()
+    """Esta funcion es la encargada de encriptar la clave
+    Args:
+    password:Nos trae la clave para encriptarla
+
+    """
 
 def login(request):
     context = {}
@@ -34,9 +39,13 @@ def login(request):
         messages.error(request,f"error: {e}")
     print(context)       
     return render(request,'index.html', context)
-  
+    """Esta funcion es la encargada de encriptar la clave
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+    usuario:Nos trae el objeto usuario
 
-
+    """
 
 def logout (request):
     try:

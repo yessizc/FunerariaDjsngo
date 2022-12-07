@@ -25,6 +25,12 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+    """Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def listarPagos (request):
     permisos = {}
@@ -42,7 +48,14 @@ def listarPagos (request):
         return render (request,'index.html')        
     context = {"datos":q,"sesion":permisos}
     return render(request, 'pagos/listarPagos.html',context)
+    """Esta funcion nos permite listar los pagos registrados en la base de datos
+    Args:
+    us:Nos filtra los pagos dependiendo la cedula del usuario
+    q:Nos trae el objeto usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
 
 def formularioPagos (request):
     permisos = {}
@@ -63,7 +76,14 @@ def formularioPagos (request):
         else:
             messages.warning(request,"para ingresar debe iniciar sesion...")
             return render (request,'index.html') 
+    """Esta funcion nos permite mostrar el formulario para registrar un nuevo pago
+    Args:
+    t:Trae solo el id del objeto plan
+    p:Nos trae el objeto usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
 
 
 def guardarPagos (request):
@@ -96,7 +116,15 @@ def guardarPagos (request):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarPagos')
+    """Esta funcion nos permite guardar los datos enviados por medio del formulario
+    Args:
+    factura:Nos trae el objeto factura
+    q:Es la que guarda los datos enviados
+    usuario:Nos trae el objeto usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
         
 
 
@@ -107,4 +135,9 @@ def buscarUsuario(request):
     p = Usuario.objects.all()
     context = {"Usuarios": p ,"Usuario": usuario}
     return render(request, 'pagos/agregarPagos.html',context)
-    
+    """Esta funcion nos permite buscar el usuario por medio del id
+    Args:
+    p:Nos trae el objeto usuario
+    context:Esta variable este trae el objeto sesion
+
+    """
