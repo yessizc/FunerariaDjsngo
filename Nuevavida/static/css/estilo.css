@@ -192,6 +192,7 @@
     #restablecer:hover{
         background-color: white;
         color: #001259;
+        border-color: #001259;
     }
     
 /*Botones de guardar, agregar, editar y eliminar*/

@@ -24,6 +24,12 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+    """Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def listarPlan (request):
     permisos = {}
@@ -39,6 +45,13 @@ def listarPlan (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html') 
+    """Esta funcion se encarga de listarnos todos los planes registrados en la base de datos
+    Args:
+    q:Nos trae el objeto plan
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def formularioPlan (request, id):
     permisos = {}
@@ -57,7 +70,14 @@ def formularioPlan (request, id):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html') 
+    """Esta funcion nos permite mostar el formulario para guardar un nuevo plan en la base de datos
+    Args:
+    t:Nos trae solament el id del objeto plan
+    q:Nos trae el objeto plan
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
 
 def guardarPlan (request):
     try:
@@ -82,7 +102,11 @@ def guardarPlan (request):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarPlan')
+    """Esta funcion se encarga de guardar los datos enviados desde el formulario y registrarlos en la base de datos
+    Args:
+    q:Es la encargada de guardar los datos enviados por medio del formulario
 
+    """
 
 def editarPlan (request, id):
     print("update")
@@ -103,7 +127,11 @@ def editarPlan (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarPlan')
+    """Esta funcion es la que nos permite editar los datos del plan
+    Args:
+    plan:Nos trae el objeto Plan y nos muestra los datos registrados en el formulario
 
+    """
 
 def eliminarPlan (request, id):
     try:
@@ -115,7 +143,11 @@ def eliminarPlan (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarPlan')
+    """Esta funcion es la que nos permite eliminar un plan de la base de datos
+    Args:
+    plan:Nos trae el objeto Plan
 
+    """
 
 
 

@@ -132,7 +132,19 @@ class DetalleFuneral(models.Model):
     
     def __str__ (self):
         return f"{self.nombreDifunto}"
+    """Este modulo es para realizar el detalle de los funerales
+    Args:
+    nombreDifunto:'String'
+    cedulaDifunto:'entero'
+    fechaEntierro:'date'
+    lugarEntierro:'String'
+    fechaVelacion:'date'
+    lugarVelacion:'String'
+    Tipo:'String'
+    tipoUsuario:'String'
+    cedulaUsuario:'entero'
 
+    """
 
 def calcularEdad(self): 
         today = date.today() 

@@ -13,6 +13,10 @@ Bienvenidos a la documentacion de la funeraria NuevaVida!
 .. automodule:: models
    :members:
    :private-members:
+
+.. automodule:: views
+   :members:
+   :private-members:
    
 Indices y tablas
 =================

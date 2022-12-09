@@ -10,6 +10,12 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+    """Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def listarDetalle (request):
     permisos = {}
@@ -28,6 +34,13 @@ def listarDetalle (request):
     else:
         messages.warning(request,"Solo puede inscribir detalle el administrador")
         return render (request,'index.html')
+    """Esta funcion es la encargada de listar todos los detalles del funeral que esten en la base de datos
+    Args:
+    q:Esta variable nos trae todo el objeto DetalleFuneral
+    context:Esta variable nos trae el objeto sesion
+    permisos:Esta variable trae el rol
+    
+    """
 
 def formularioDetalle (request, id):
     permisos = {}
@@ -54,7 +67,15 @@ def formularioDetalle (request, id):
         else:
             messages.warning(request,"Solo puede inscribir detalle el administrador")
             return render (request,'index.html') 
-
+    """Esta funcion es la encargada de mostrarnos el pormulario para un nuevo ingreso de algun DetalleFuneral
+    Args:
+    t:Esta variable nos trae solamente el id de el DetalleFuneral
+    p:Esta vaiable nos trae a todo el objeto usuario
+    q:Esta variable nos trae todo el objeto DetalleFuneral
+    context:Esta variable nos trae el objeto sesion
+    permisos:Esta variable trae el rol
+    
+    """
 
 def guardarDetalle (request):
     try:
@@ -85,6 +106,11 @@ def guardarDetalle (request):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarDetalle')
+    """Esta funcion es la encargada de dejarnos guardar toda la informacion enviada a traves del formulario
+    Args:
+    q:Esta variable es la que guarda toda la informacion que manda el formulario y lo guarda en la base de datos
+    
+    """
 
 
 def editarDetalle (request, id):
@@ -109,7 +135,11 @@ def editarDetalle (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarDetalle')
-
+    """Esta funcion es la encargada de dejarnos editar el DetalleFuneral
+    Args:
+    detalle:Esta variable nos trae todo el objeto DetalleFuneral y nos permite mostrar los datos registrados en la base de datos
+    
+    """
 
 def eliminarDetalle (request, id):
     try:
@@ -121,3 +151,8 @@ def eliminarDetalle (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarDetalle')
+    """Esta funcion es la encargada de permitirnos eliminar un registro de DetalleFuneral
+    Args:
+    detalle:Esta variable nos trae todo el objeto DetalleFuneral y por medio del id borrar el registro
+    
+    """

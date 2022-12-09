@@ -28,6 +28,12 @@ def index(request):
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser']}
         context = {"sesion" : permisos}
     return render (request,'index.html', context)
+    """Esta funcion envia al index principal siempre y cuando este logeado por eso solicita permisos
+    Args:
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def listarUsuario (request):
     permisos = {}
@@ -46,6 +52,14 @@ def listarUsuario (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')
+    """Esta funcion es la que nos permite listar todos los usuarios registrados en la base de datos
+    Args:
+    q:Nos trae el objeto usuario
+    us:Nos trae solamente el id del usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
+
+    """
 
 def formularioUsuario (request, id):
     permisos = {}
@@ -72,7 +86,15 @@ def formularioUsuario (request, id):
         else:
             messages.warning(request,"para ingresar debe iniciar sesion...")
             return render (request,'index.html') 
+    """Esta funcion nos permite mostrar el formulario para registrar un nuevo usuario
+    Args:
+    q:Nos trae el objeto usuario
+    p:Nos trae el objeto plan
+    t:Nos trae solo el id del usuario
+    context:Esta variable este trae el objeto sesion
+    permisos:Esta variable trae el rol
 
+    """
 
 def guardarUsuario (request):
     print(request.POST["telefono"])
@@ -102,7 +124,11 @@ def guardarUsuario (request):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarUsuario')
+    """Esta funcion nos permite guardar los datos enviados por medio del formulario
+    Args:
+    q:Guarda los datos que llegan por medio del formulario
 
+    """
 
 def editarUsuario (request, id):
     print(request.POST["idPlan"])
@@ -127,7 +153,11 @@ def editarUsuario (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarUsuario')
+    """Esta funcion nos permite editar a un usuario registrado en la base de datos
+    Args:
+    usuario:trae el objeto usuario y nos muestra los datos en el formulario para poderlo editar
 
+    """
 
 def eliminarUsuario (request, id):
     try:
@@ -139,7 +169,11 @@ def eliminarUsuario (request, id):
         messages.error(request,f"error: {e}")
            
     return redirect('Nuevavida:listarUsuario')
+    """Esta funcion nos permite eliminar a un usuario de la base de datos
+    Args:
+    usuario:trae el objeto usuario
 
+    """
 
 
 
