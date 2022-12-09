@@ -6,3 +6,5 @@ function validarPlan(){
         document.getElementById("idUsuario").value = 0;
     }
 }
+
+fechaNacimiento.max = new Date().toISOString().split("T")[0];

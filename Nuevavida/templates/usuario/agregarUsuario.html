@@ -27,15 +27,15 @@
     </div><br>
     <div class="form-group">
         <label for="fname">Nombre:</label><br>
-        <input class="form-control" type="text" name="nombre" value="{% if Usuario %}{{Usuario.nombre}}{% endif %}" {% if Usuario %}disabled{% endif %}><br>
+        <input class="form-control" type="text" name="nombre" value="{% if Usuario %}{{Usuario.nombre}}{% endif %}" {% if Usuario.nombre %}disabled{% endif %}><br>
     </div>
     <div class="form-group">
         <label for="lname">Apellido:</label><br>
-        <input class="form-control" type="text" name="apellido" value="{% if Usuario %}{{Usuario.apellido}}{% endif %}"{% if Usuario %}disabled{% endif %}><br>
+        <input class="form-control" type="text" name="apellido" value="{% if Usuario %}{{Usuario.apellido}}{% endif %}"{% if Usuario.nombre %}disabled{% endif %}><br>
     </div>
     <div class="form-group">
         <label ftype="number">Cedula:</label><br>
-        <input class="form-control" type="text" name="cedula" value="{% if Usuario %}{{Usuario.cedula}}{% endif %}" {% if Usuario %}disabled{% endif %} required><br>
+        <input class="form-control" type="text" name="cedula" value="{% if Usuario %}{{Usuario.cedula}}{% endif %}" {% if Usuario.nombre %}disabled{% endif %} required><br>
     </div>
 
     <div class="form-group">
@@ -50,7 +50,7 @@
 
     <div class="form-group">
         <label for="lname">fechaNacimiento:</label><br>
-        <input class="form-control" type="date" name="fechaNacimiento" value="{% if Usuario %}{{Usuario.fechaNacimiento}}{% endif %}"><br>
+        <input class="form-control" id= "fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Usuario %}{{Usuario.fechaNacimiento}}{% endif %}"><br>
     </div>
     <div class="form-group">
         <label for="lname">Contraseña:</label><br>

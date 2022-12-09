@@ -36,7 +36,7 @@ def listarFactura (request):
             q = []
             fs = Factura.objects.all()
             for f in fs:
-                pago = Pagos.objects.get(idFactura = f.pk)
+                pago = Pagos.objects.get(idFactura_id = f.pk)
                 us = Usuario.objects.get(pk = pago.cedulaUsuario.pk)
                 q.append({"nombre" : us.nombre, 
                 "fechaPago" : f.fechaPago,

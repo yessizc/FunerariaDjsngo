@@ -25,3 +25,4 @@ function verificar(){
         alert("Su contraseña debe tener minimo 8 caracteres");
     }
 }
+fechaNacimiento.max = new Date().toISOString().split("T")[0];

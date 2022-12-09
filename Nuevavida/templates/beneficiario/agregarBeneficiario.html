@@ -1,5 +1,4 @@
 {%extends "base.html"%} {%load static%} {%block contenedor%}
-
 <h2>Beneficiario</h2><br>
 {% if Beneficiario.id != 0 %}
 <form action="{% url 'Nuevavida:editarBeneficiario' Beneficiario.id %}" method="post">
@@ -28,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="fname">cedula Beneficiario:</label><br>
-        <input class="form-control" type="text" name="cedulaBeneficiario" value="{% if Beneficiario %}{{Beneficiario.cedulaBeneficiario}}{% endif %}"><br>
+        <input class="form-control" type="text" name="cedulaBeneficiario" value="{% if Beneficiario %}{{Beneficiario.cedulaBeneficiario}}{% endif %}" {% if Beneficiario.cedulaBeneficiario %}disabled{% endif %}><br>
     </div>
     <div class="form-group">
         <label for="lname">nombre Beneficiario:</label><br>
@@ -41,7 +40,7 @@
 
     <div class="form-group">
         <label for="lname">fecha Nacimiento:</label><br>
-        <input class="form-control" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+        <input class="form-control" id="fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
     </div>
 
     <input class="btn btn-success" type="submit" value="Guardar" id="guardar">
