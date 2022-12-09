@@ -1,6 +1,6 @@
 {%extends "base.html"%} {%load static%} {%block contenedor%}
 
-<h2>Formulario</h2><br>
+<h2>Usuario</h2><br>
 {% if Usuario.id != 0 %}
 <form action="{% url 'Nuevavida:editarUsuario' Usuario.id %}" method="post">
 {% else %}
@@ -27,15 +27,15 @@
     </div><br>
     <div class="form-group">
         <label for="fname">Nombre:</label><br>
-        <input class="form-control" type="text" name="nombre" value="{% if Usuario %}{{Usuario.nombre}}{% endif %}"><br>
+        <input class="form-control" type="text" name="nombre" value="{% if Usuario %}{{Usuario.nombre}}{% endif %}" {% if Usuario %}disabled{% endif %}><br>
     </div>
     <div class="form-group">
         <label for="lname">Apellido:</label><br>
-        <input class="form-control" type="text" name="apellido" value="{% if Usuario %}{{Usuario.apellido}}{% endif %}"><br>
+        <input class="form-control" type="text" name="apellido" value="{% if Usuario %}{{Usuario.apellido}}{% endif %}"{% if Usuario %}disabled{% endif %}><br>
     </div>
     <div class="form-group">
         <label ftype="number">Cedula:</label><br>
-        <input class="form-control" type="text" name="cedula" value="{% if Usuario %}{{Usuario.cedula}}{% endif %}"><br>
+        <input class="form-control" type="text" name="cedula" value="{% if Usuario %}{{Usuario.cedula}}{% endif %}" {% if Usuario %}disabled{% endif %} required><br>
     </div>
 
     <div class="form-group">
@@ -60,7 +60,7 @@
         <label for="lname">Verificar contraseña:</label><br>
         <input class="form-control" id="password2" type="password" onblur="verificarPassword()" name="verificar_password" value=""><br>
     </div>
-    <input class="btn btn-success" id="btnSave" type="submit" value="guardar">
+    <input class="btn btn-success" id="btnSave" type="submit" value="Guardar">
     
 </form>
 

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-10">
                 <label for="fname">Usuario:</label><br> 
-                <select class="form-control" name="usuario" id="idUsuario">
+                <select class="form-control" name="usuario" id="idUsuario" required>
                     {% if Usuarios %}
                     {% for coti in Usuarios %}
                         {% if coti.id == Usuario.id %}
@@ -36,9 +36,9 @@
         </div>
         <div class="form-group">
             <label for="lname">cuota:</label><br>
-            <input class="form-control" type="text" name="cuota" value="{% if Usuario %}{{Pagos.cuota}}{% endif %}"><br>
+            <input class="form-control" type="text" name="cuota" value="{% if Usuario %}{{Pagos.cuota}}{% endif %}" required><br>
         </div>
-        <input class="btn btn-success" type="submit" value="Realizar pago">
+        <input class="btn btn-success" type="submit" value="Realizar pago" id="guardar">
     </form>
 
 

@@ -33,7 +33,7 @@
         <td>{{t.totalDeuda}}</td>
         <td>{{t.totalPago}}</td>
         
-        <td><button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:verFactura' t.id %}">Ver factura</a></button></td>
+        <td><button class="btn btn-primary" id="editar"><a id="infoeditar" href="{% url 'Nuevavida:verFactura' t.id %}">Ver factura</a></button></td>
     </tr>
 
 
@@ -43,6 +43,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     var table = new DataTable('#tableFactura', { 
+        language: spanishDataTable,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
@@ -51,4 +52,5 @@
 
 });
 </script>
+<script src="../../static/js/utils.js"></script>
 {% else %} no hay datos {% endif %} {%endblock contenedor%}

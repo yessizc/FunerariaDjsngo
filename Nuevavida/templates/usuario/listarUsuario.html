@@ -10,7 +10,7 @@
 {% endfor %} {% endif %}
 
 {% if sesion.rol == '1' %}
-<button class="btn btn-success"><a class="navbar-brand" href="{% url 'Nuevavida:formularioUsuario' 0%}">Agregar</a></button> 
+<button class="btn btn-success" id="agregar"><a class="navbar-brand" href="{% url 'Nuevavida:formularioUsuario' 0%}">Agregar</a></button> 
 {% endif %}
 
 {% if datos %}
@@ -35,9 +35,9 @@
         <td>{{t.apellido}}</td>
         <td>{{t.telefono}}</td>
         <td>{{t.correo}}</td>
-        <td><button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioUsuario' t.id %}">Editar</a></button>&nbsp;
+        <td><button class="btn btn-primary"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioUsuario' t.id %}">Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
-            <button class="btn btn-danger"><a style="text-decoration: none; color:white"href="/Nuevavida/eliminarUsuario/{{t.id}}">Eliminar</a></button></td>
+            <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarUsuario/{{t.id}}">Eliminar</a></button></td>
             {% endif %}
     </tr>
 
@@ -48,6 +48,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     var table = new DataTable('#tableUsuario', { 
+        language: spanishDataTable,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
@@ -56,4 +57,5 @@
 
 });
 </script>
+<script src="../../static/js/utils.js"></script>
 {% else %} no hay datos {% endif %} {%endblock contenedor%}

@@ -1,15 +1,13 @@
 {%extends "base.html"%} {%load static%} {%block titulo%} Pagos {%endblock%} {%block contenedor%}
 
 
-
-
 <h1><b>Pagos</b></h1>
 {% if messages %} 
 {% for message in messages %}
 <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}dark{% endif %}" role="alert"> {{ message }} </div>
 {% endfor %} {% endif %}
 
-<button class="btn btn-success"><a class="navbar-brand" href="{% url 'Nuevavida:formularioPagos' %}">Realizar pago</a></button>
+<button class="btn btn-success" id="agregar"><a class="navbar-brand" href="{% url 'Nuevavida:formularioPagos' %}">Realizar pago</a></button>
 {% if datos %}
 <table class="table table-striped table-hover" border="2px" id="tablePagos">
     <thead>
@@ -18,6 +16,7 @@
             <th>Nombre usuario</th>
             <th>cuota</th>
             <th>valor</th>
+            <th>Deuda</th>
             <th>Acciones</th>     
         </tr>
     </thead>
@@ -26,9 +25,10 @@
     <tr>
         <td>{{t.fechaPago}}</td>
         <td>{{t.cedulaUsuario.nombre}}</td>
-        <td>{{t.cuota}}</td>
-        <td>{{t.valor}}</td>
-        <td><button class="btn btn-danger"><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:verFacturaPago' t.id %}">Ver factura</a></button></td>
+        <td>COP {{t.cuota}}</td>
+        <td>COP {{t.valor}}</td>
+        <td>COP {{t.idFactura.totalDeuda}}</td>
+        <td><button class="btn btn-danger"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:verFacturaPago' t.id %}">Ver factura</a></button></td>
     </tr>
 
 
@@ -38,6 +38,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     var table = new DataTable('#tablePagos', { 
+        language: spanishDataTable,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
@@ -46,4 +47,6 @@
 
 });
 </script>
+
+<script src="../../static/js/utils.js"></script>
 {% else %} no hay datos {% endif %} {%endblock contenedor%}

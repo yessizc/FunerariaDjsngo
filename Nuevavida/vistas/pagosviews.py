@@ -32,15 +32,23 @@ def listarPagos (request):
     if "rol" in request.session:
         if request.session["rol"] == '1':
             q = Pagos.objects.all() #DICCIONARIO CON LOS DATOS 
+            for i in q:
+                i.valor = '{:,}'.format(i.valor)
+                i.cuota = '{:,}'.format(i.cuota)
+                i.idFactura.totalDeuda = '{:,}'.format(i.idFactura.totalDeuda)
         else:
-            us = Pagos.objects.get(cedulaUsuario = request.session["idUser"])
-            q = [us]
+            us = Pagos.objects.filter(cedulaUsuario = request.session["idUser"])
+            q = [us][0]
+            for i in q:
+                i.valor = '{:,}'.format(i.valor)
+                i.cuota = '{:,}'.format(i.cuota)
+                i.idFactura.totalDeuda = '{:,}'.format(i.idFactura.totalDeuda)
         if "idUser" in request.session:
             permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
-        return render (request,'index.html')        
-    
+        return render (request,'index.html')   
+    print(q[0].idFactura.totalDeuda)     
     context = {"datos":q,"sesion":permisos}
     return render(request, 'pagos/listarPagos.html',context)
 
@@ -49,7 +57,10 @@ def formularioPagos (request):
     permisos = {}
     if "idUser" in request.session:
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-        p = Usuario.objects.all()
+        if request.session["rol"]=='1':
+            p = Usuario.objects.all()
+        else:
+            p=Usuario.objects.filter(pk=request.session["idUser"])
         context = {"Usuarios": p, "sesion": permisos}
         return render(request, 'pagos/agregarPagos.html',context)
     else:

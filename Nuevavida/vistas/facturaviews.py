@@ -21,7 +21,7 @@ from..models import Usuario, Factura, Pagos
 
 
 def index(request):
-    ontext = {}
+    context = {}
     if "idUser" in request.session:
         permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
         context = {"sesion" : permisos}
@@ -46,8 +46,9 @@ def listarFactura (request):
         else:
             facturas = []
             pagos = []
-            pagos.append(Pagos.objects.get(cedulaUsuario_id = request.session["idUser"]))
-            for p in pagos:
+            pagos.append(Pagos.objects.filter(cedulaUsuario_id = request.session["idUser"]))
+            print (len(pagos))
+            for p in pagos[0]:
                 facturas.append(Factura.objects.get(pk = p.idFactura.id))
             print("facturas "+str(len(facturas)))
             q = facturas

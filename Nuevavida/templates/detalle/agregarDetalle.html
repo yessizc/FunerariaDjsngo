@@ -1,0 +1,76 @@
+{%extends "base.html"%} {%load static%} {%block contenedor%}
+
+<h2>Formulario</h2><br>
+{% if detalleFuneral.id != 0 %}
+<form action="{% url 'Nuevavida:editarDetalle' DetalleFuneral.id %}" method="post">
+{% else %}
+<form action="{% url 'Nuevavida:guardarDetalle' %}" method="post">
+{% endif %}
+
+    {% csrf_token %}
+    <div id="formDetalle">
+        <div class="form-group">
+            <label for="fname">Nombre del difunto:</label><br>
+            <input class="form-control" type="text" name="nombreDifunto" value="{% if DetalleFuneral %}{{DetalleFuneral.nombreDifunto}}{% endif %}"><br>
+        </div>
+        <div class="form-group">
+            <label for="lname">Cedula del difunto:</label><br>
+            <input class="form-control" type="number" name="cedulaDifunto" value="{% if DetalleFuneral %}{{DetalleFuneral.cedulaDifunto}}{% endif %}"><br>
+        </div>
+        
+        <div class="form-group">
+            <label ftype="number">Fecha de entierro:</label><br>
+            <input class="form-control" type="date" name="fechaEntierro" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaEntierro}}{% endif %}"><br>
+        </div>
+        
+        <div class="form-group">
+            <label ftype="number">Lugar entierro:</label><br>
+            <input class="form-control" type="text" name="lugarEntierro" value="{% if DetalleFuneral %}{{DetalleFuneral.lugarEntierro}}{% endif %}"><br>
+        </div>
+
+        <div class="form-group">
+            <label for="lname">Fecha de velacion:</label><br>
+            <input class="form-control" type="date" name="fechaVelacion" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaVelacion}}{% endif %}"><br>
+        </div>
+
+        <div class="form-group">
+            <label for="lname">Lugar de velacion:</label><br>
+            <input class="form-control" type="text" name="lugarVelacion" value="{% if DetalleFuneral %}{{DetalleFuneral.lugarVelacion}}{% endif %}"><br>
+        </div>
+        <input type="hidden" name="id" value="{{DetalleFuneral.id}}">
+
+        <label for="fname">Seleccione el tipo de usuario:</label><br>
+        <select class="form-control" name="tipoUsuario">       
+            <option value="Cotizante">Cotizante</option>
+            <option value="Beneficiario">Beneficiario</option>
+        </select><br>
+
+        <div class="form-group">
+            <label for="fname">Cotizante:</label><br>
+            <select class="form-control" name="cedulaUsuario">
+                {% if Usuario %}
+                    {% for user in Usuario %}
+                    
+                        {% if user.id == detalleFuneral.iduser_id  %}
+                            <option value="{{user.id}}" selected >{{user.cedula}} - {{user.nombre}} {{user.apellido}}</option>
+                        {% else %}
+                            <option value="{{user.id}}">{{user.cedula}} - {{user.nombre}} {{user.apellido}}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %} 
+            </select>
+        </div><br>
+        <input class="btn btn-success" type="submit" value="Guardar" id="guardar">
+    </div>
+</form>
+
+{% if messages %}
+    
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }}</li>
+        {% endfor %}
+    
+    <div class="alert alert- {% if message.tags %} {{ message.tags }} {% else %} dark {% endif %}" role="alert"> {{ message.tags }} </div>
+{% endif %}
+
+{%endblock%}

@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+    {%load static%} 
+
+    {%block contenedor%}
+
+    
+<div class="container" style="text-align: center;">
+    <form method="post" action="{% url 'Nuevavida:cambiarPws' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{id}}" name="id">
+        <h2 style="color:black" >Ingrese la nueva contraseña</h2>
+        <br>
+        <label for="correo" id="exampleModalLabel">Contraseña</label>
+        <input type="password" class="form-control" id="correo" name="password"><br>
+        <input class="btn btn-info" type="submit" value="Cambiar contraseña">
+    </form>
+</div>
+  
+
+{%endblock contenedor%}

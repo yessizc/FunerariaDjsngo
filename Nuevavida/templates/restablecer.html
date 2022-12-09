@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+    {%load static%} 
+
+    {%block contenedor%}
+
+    
+<div class="container" style="text-align: center;">
+    <form method="post" action="{% url 'Nuevavida:restablecer' %}">
+        {% csrf_token %}
+        <h2 style="color:black" >Ingrese su direccion de correo electronico</h2>
+        <br>
+        <div class="container">
+            <label for="correo" id="exampleModalLabel">Correo</label>
+            <input class="form-control" id="correo" name="correo"><br>
+            <input class="btn btn-info" type="submit" value="Restablecer" id="restablecer">
+        </div>    
+    </form>
+</div>
+  
+
+{%endblock contenedor%}
