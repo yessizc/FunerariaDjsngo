@@ -1,6 +1,12 @@
 {%extends "base.html"%} {%load static%} {%block contenedor%}
 
 <h2>Pagos</h2><br>
+<h5>Dia de pago: {% if pagosInfo %}
+    {{ pagosInfo.fechaPago }}
+    {% else %}
+    {{ fechaHoy }}
+{% endif %}</h5>
+<h5>Valor de la deuda: {{Usuario.deuda}}</h5>
 <h5>Valor de la cuota: {{Usuario.idplan.precio}}</h5>
     <form action="{% url 'Nuevavida:buscarUsuario'%}" method="post">
         {% csrf_token %}
@@ -38,7 +44,9 @@
             <label for="lname">cuota:</label><br>
             <input class="form-control" type="text" name="cuota" value="{% if Usuario %}{{Pagos.cuota}}{% endif %}" required><br>
         </div>
+       
         <input class="btn btn-success" type="submit" value="Realizar pago" id="guardar">
+       
     </form>
 
 

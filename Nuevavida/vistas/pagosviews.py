@@ -77,14 +77,8 @@ def formularioPagos (request):
         context = {"Usuarios": p, "sesion": permisos}
         return render(request, 'pagos/agregarPagos.html',context)
     else:
-        t = {'id':id}
-        if "idUser" in request.session:
-            permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-            context = {"Plan":t, "sesion":permisos}
-            return render(request,'planes/agregarPlan.html', context)
-        else:
-            messages.warning(request,"para ingresar debe iniciar sesion...")
-            return render (request,'index.html') 
+        messages.warning(request,"para ingresar debe iniciar sesion...")
+        return render (request,'index.html') 
     """Esta funcion nos permite mostrar el formulario para registrar un nuevo pago
     Args:
     t:Trae solo el id del objeto plan
@@ -139,11 +133,19 @@ def guardarPagos (request):
 
 def buscarUsuario(request):
     permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-    print(request.POST["usuario"])
     usuario = Usuario.objects.get(pk = request.POST["usuario"])
     usuario.idplan.precio = usuario.idplan.precio + usuario.deuda
+    pagos = Pagos.objects.filter(cedulaUsuario = usuario.pk).first()
+    fechahoy = str(datetime.date.today().day) + "/" + str(datetime.date.today().month) + "/" + str(datetime.date.today().year)
+    if pagos:
+        pagos.fechaPago = str(pagos.fechaPago.day) + "/" + str(datetime.date.today().month) + "/" + str(datetime.date.today().year)
     p = Usuario.objects.all()
-    context = {"Usuarios": p ,"Usuario": usuario , "sesion" : permisos}
+    context = {"Usuarios": p ,
+                "Usuario": usuario , 
+                "sesion" : permisos, 
+                "pagosInfo" : pagos, 
+                "fechaHoy": fechahoy
+                }
     return render(request, 'pagos/agregarPagos.html',context)
     """Esta funcion nos permite buscar el usuario por medio del id
     Args:

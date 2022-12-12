@@ -16,7 +16,7 @@
     font-size: 50px;
         font-family: copperplate gothic;
     margin-top: 80px;
-    color: darkred;
+    color: #080B3E;
     text-shadow: 6px 6px 6px black;
     
     }
@@ -89,14 +89,14 @@
     }
     .container-fluid{
         
-        background-color: #001259;
+        background-color: #0A0D48;
     }
     .navbar div a{
         color: white;
     }
 
     #footer{
-        background-color: #001259;
+        background-color: #080B3E;
         position: relative;
         bottom: 0;
         width: 100%;
@@ -116,7 +116,7 @@
     }
 
     #medio{
-        background-image: url(/static/imagenes/fondo.jpeg);
+        background-image: url(/static/imagenes/fondogris.jpg);
         background-repeat: no-repeat;
         background-position: center center;
         background-attachment: fixed;

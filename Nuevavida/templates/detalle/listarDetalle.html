@@ -38,7 +38,7 @@
         <td><button class="btn btn-primary"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioDetalle' t.id %}" >Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
             <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarDetalle/{{t.id}}" onclick="return confirm('Esta seguro que desea eliminar este registro')">Eliminar</a></button></td>
-            {% endif %}
+    {% endif %}
     </tr>
 
 
