@@ -3,8 +3,7 @@ import datetime
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from Nuevavida.vistas import beneficiarioviews
-from ..models import Beneficiario, DetalleFuneral, Usuario
+from ..models import DetalleFuneral, Usuario, Beneficiario
 
 def index(request):
     context = {}
@@ -48,8 +47,8 @@ def formularioDetalle (request, id):
     permisos = {}
     print(id)
     if id != 0:
-        h = Beneficiario.objects.all()
         q = DetalleFuneral.objects.get(pk = id)
+        h = Beneficiario.objects.all()
         p = Usuario.objects.all()
         q.fechaEntierro = q.fechaEntierro.strftime('%Y-%m-%d')
         print(q.fechaEntierro)
@@ -85,15 +84,13 @@ def guardarDetalle (request):
     try:
         if request.method=="POST":
             q = DetalleFuneral(
-                nombreDifunto = request.POST["nombreDifunto"],
-                cedulaDifunto = request.POST["cedulaDifunto"],
                 fechaEntierro = datetime.datetime.strptime(request.POST["fechaEntierro"], "%Y-%m-%d").date(),
                 lugarEntierro = request.POST["lugarEntierro"],
                 fechaVelacion = datetime.datetime.strptime(request.POST["fechaVelacion"], "%Y-%m-%d").date(),
                 lugarVelacion = request.POST["lugarVelacion"],
-                cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"]),
-                tipoUsuario = request.POST["tipoUsuario"],
-                cedulaBeneficiario = Beneficiario.objects.get(pk = request.POST["cedulaBeneficiario"])
+                idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"]),
+                cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
+                
             )           
             q.save()
         #si todo esta bien.
@@ -106,7 +103,7 @@ def guardarDetalle (request):
         else:
             messages.warning(request,"no se han eviado los datos correctamente...")
     except Exception as e:
-        messages.error(request,f"error: {e}")
+        messages.error(request,f"errorperr: {e}")
            
     return redirect('Nuevavida:listarDetalle')
     """Esta funcion es la encargada de dejarnos guardar toda la informacion enviada a traves del formulario
@@ -121,14 +118,12 @@ def editarDetalle (request, id):
         if request.method=="POST":
             detalle = DetalleFuneral.objects.get(pk = id)
 
-            detalle.nombreDifunto = request.POST["nombreDifunto"]
-            detalle.cedulaDifunto = request.POST ["cedulaDifunto"]
             detalle.fechaEntierro = datetime.datetime.strptime(request.POST["fechaEntierro"], "%Y-%m-%d").date()
             detalle.lugarEntierro = request.POST["lugarEntierro"]
             detalle.fechaVelacion = datetime.datetime.strptime(request.POST["fechaVelacion"], "%Y-%m-%d").date()
             detalle.lugarVelacion = request.POST ["lugarVelacion"]
             detalle.cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
-            detalle.cedulaBeneficiario = Beneficiario.objects.get(pk = request.POST["cedulaBeneficiario"])
+            detalle.idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"]),
             detalle.save()
             messages.success(request," Los datos fueron editados correctamente!")
 

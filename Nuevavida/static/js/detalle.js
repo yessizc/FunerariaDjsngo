@@ -12,8 +12,8 @@ function validarPlan(){
 }
 
 function verificar(){
-    let beneficiario = document.getElementById('beneficiario').checked;
-    if( beneficiario == true){
+    let benefici = document.getElementById('benefici').checked;
+    if( benefici == true){
         document.getElementById('ceduBenefi').style.display='block';
     }
     else{
@@ -22,8 +22,10 @@ function verificar(){
     }
  
 }
-
-function validarBeneficiario(){
-    let cedubene = document.getElementById("cedulaBeneficiario").value;
-    console.log(cedubene)
+function vamos(){
+    let plan = document.getElementById("idbeneficiario").value;
+    if( plan != 0 ){
+       console.log(plan)
+    }
 }
+

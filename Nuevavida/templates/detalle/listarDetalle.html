@@ -14,27 +14,28 @@
 <table class="table table-striped table-hover" border="2px" id="tableDetalle">
     <thead>
         <tr>
-            <th>Nombre de Difunto</th>
-            <th>Cedula de Difunto</th>
+            <th>Cedula Cotizante</th>
+            <th>Cotizante</th>
+            <th>Cedula Beneficiario</th>
+            <th>Beneficiario</th>
             <th>Fecha de Entierro</th>
             <th>Lugar de Entierro</th>
             <th>Fecha de Velacion</th>
             <th>Lugar de Velacion</th>
-            <th>Tipo de Usuario</th>
-            <th>Cotizante</th>
+            
         </tr>
     </thead>
 
     {%for t in datos %}
     <tr>
-        <td>{{t.cedulaUsuario}}</td>
-        <td>{{t.nombreDifunto}}</td>
-        <td>{{t.cedulaDifunto}}</td>
+        <td>{{t.cedulaUsuario.cedula}}</td>
+        <td>{{t.cedulaUsuario}} {{t.cedulaUsuario.apellido}}</td>
+        <td>{{t.idbeneficiario.cedulaBeneficiario}}</td>
+        <td>{{t.idbeneficiario.nombreBeneficiario}} {{t.idbeneficiario.apellidoBeneficiario}}</td>
         <td>{{t.fechaEntierro}}</td>
         <td>{{t.lugarEntierro}}</td>
         <td>{{t.fechaVelacion}}</td>
         <td>{{t.lugarVelacion}}</td>
-        <td>{{t.tipoUsuario}}</td>
         <td><button class="btn btn-primary"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioDetalle' t.id %}" >Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
             <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarDetalle/{{t.id}}" onclick="return confirm('Esta seguro que desea eliminar este registro')">Eliminar</a></button></td>

@@ -117,19 +117,13 @@ class Pagos (models.Model):
     
     """
 class DetalleFuneral(models.Model):
-    cedulaBeneficiario = models.ForeignKey(Beneficiario, on_delete= models.DO_NOTHING)
+    idbeneficiario = models.ForeignKey(Beneficiario, on_delete= models.DO_NOTHING)
     cedulaUsuario = models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
-    nombreDifunto = models.CharField(max_length=100)
-    cedulaDifunto = models.IntegerField(unique= True)
     fechaEntierro = models.DateField()
     lugarEntierro = models.CharField(max_length=100)
     fechaVelacion = models.DateField()
     lugarVelacion = models.CharField(max_length=100)
-    tipo=(
-        ("Cotizante","Cotizante"),
-        ("Beneficiario","Beneficiario"),
-    )
-    tipoUsuario= models.CharField(max_length=20,choices=tipo)
+
     
     def __str__ (self):
         return f"{self.nombreDifunto}"
