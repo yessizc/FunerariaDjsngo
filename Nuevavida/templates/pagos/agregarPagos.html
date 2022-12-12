@@ -45,7 +45,7 @@
             <input class="form-control" type="text" name="cuota" value="{% if Usuario %}{{Pagos.cuota}}{% endif %}" required><br>
         </div>
        
-        <input class="btn btn-success" type="submit" value="Realizar pago" id="guardar">
+        <input class="btn btn-success" {% if Usuario.deuda < 0 %} disabled =""{% endif%} type="submit" value="Realizar pago" id="guardar">
        
     </form>
 
