@@ -138,11 +138,12 @@ def guardarPagos (request):
 
 
 def buscarUsuario(request):
+    permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
     print(request.POST["usuario"])
     usuario = Usuario.objects.get(pk = request.POST["usuario"])
     usuario.idplan.precio = usuario.idplan.precio + usuario.deuda
     p = Usuario.objects.all()
-    context = {"Usuarios": p ,"Usuario": usuario}
+    context = {"Usuarios": p ,"Usuario": usuario , "sesion" : permisos}
     return render(request, 'pagos/agregarPagos.html',context)
     """Esta funcion nos permite buscar el usuario por medio del id
     Args:

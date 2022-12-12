@@ -31,7 +31,7 @@
         <td>{{t.apellidoBeneficiario}}</td>
         <td>{{t.fechaNacimiento}}</td>
         <td>{{t.cedulaUsuario.nombre}}</td>
-        <td><button class="btn btn-primary" id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioBeneficiario' t.id %}">Editar</a></button>&nbsp;<button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarBeneficiario/{{t.id}}">Eliminar</a></button></td>
+        <td><button class="btn btn-primary" id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioBeneficiario' t.id %}" onclick="return confirm('Esta seguro que desea eliminar este registro')">Editar</a></button>&nbsp;<button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarBeneficiario/{{t.id}}">Eliminar</a></button></td>
     </tr>
 
 

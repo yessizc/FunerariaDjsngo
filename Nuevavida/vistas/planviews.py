@@ -38,10 +38,14 @@ def listarPlan (request):
         q = Plan.objects.all() #DICCIONARIO CON LOS DATOS DE TRABAJADOR
         context = {"datos":q, "sesion":permisos}
         if  request.session['rol'] == "1":
-            return render(request, 'planes/listarPlan.html',context)
+            for i in q:
+                i.precio = '{:,}'.format(i.precio)
+                return render(request, 'planes/listarPlan.html',context)
         else:
-            messages.warning(request,"USTED NO TIENE PERMISOS PARA ACCEDER A ESTE MODULO")
-            return render (request,'index.html', context) 
+            messages.warning(request,"USTED NO TIENE PERMISOS PARA ACCEDER A ESTE MODULO") 
+            for i in q:
+                i.precio = '{:,}'.format(i.precio)
+                return render (request,'index.html', context)
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html') 

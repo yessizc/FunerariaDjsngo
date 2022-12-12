@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario, Plan,  Factura, Beneficiario, Pagos
+from .models import Usuario, Plan, Factura, Beneficiario, Pagos, DetalleFuneral
 
 
 # Register your models here.
@@ -23,8 +23,6 @@ class PlanAdmin(admin.ModelAdmin):
     search_fields =['nombrePlan',]
 
 
-    
-
 
 @admin.register(Factura)
 class FacturaAdmin(admin.ModelAdmin):
@@ -38,5 +36,8 @@ class PagosAdmin (admin.ModelAdmin):
     search_fields = ['cedulaUsuario','fechaPago','valor']
 
 
-
+@admin.register(DetalleFuneral)
+class DetalleFuneralAdmin (admin.ModelAdmin):
+    list_display = ('nombreDifunto','cedulaDifunto','fechaEntierro','lugarEntierro','fechaVelacion', 'lugarVelacion', 'tipoUsuario', 'cedulaUsuario')
+    search_fields = ['nombreDifunto', 'cedulaDifunto', 'cedulaUsuario']
     

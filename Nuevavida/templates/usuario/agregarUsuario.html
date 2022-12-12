@@ -40,25 +40,25 @@
 
     <div class="form-group">
         <label ftype="number">Telefono:</label><br>
-        <input class="form-control" type="text" name="telefono" value="{% if Usuario %}{{Usuario.telefono}}{% endif %}"><br>
+        <input class="form-control" type="text" name="telefono" value="{% if Usuario %}{{Usuario.telefono}}{% endif %}" required=""><br>
     </div>
 
     <div class="form-group">
         <label for="lname">Correo:</label><br>
-        <input class="form-control" type="email" name="correo" value="{% if Usuario %}{{Usuario.correo}}{% endif %}"><br>
+        <input class="form-control" type="email" name="correo" value="{% if Usuario %}{{Usuario.correo}}{% endif %}" required=""><br>
     </div>
 
     <div class="form-group">
         <label for="lname">fechaNacimiento:</label><br>
-        <input class="form-control" id= "fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Usuario %}{{Usuario.fechaNacimiento}}{% endif %}"><br>
+        <input class="form-control" id= "fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Usuario %}{{Usuario.fechaNacimiento}}{% endif %}" required=""><br>
     </div>
     <div class="form-group">
         <label for="lname">Contraseña:</label><br>
-        <input class="form-control" id="password1" onblur="verificar()" type="password" name="password" value=""><br>
+        <input class="form-control" id="password1" onblur="verificar()" type="password" name="password" value="" required=""><br>
     </div>
     <div class="form-group">
         <label for="lname">Verificar contraseña:</label><br>
-        <input class="form-control" id="password2" type="password" onblur="verificarPassword()" name="verificar_password" value=""><br>
+        <input class="form-control" id="password2" type="password" onblur="verificarPassword()" name="verificar_password" value="" required=""><br>
     </div>
     <input class="btn btn-success" id="btnSave" type="submit" value="Guardar">
     

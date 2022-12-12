@@ -108,7 +108,7 @@ def guardarUsuario (request):
                 correo = request.POST["correo"],
                 password = encryptPass(request.POST['password']),
                 idplan = Plan.objects.get(pk = request.POST["idPlan"]),
-                fechaNacimiento= datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
+                fechaNacimiento = datetime.datetime.strptime(request.POST["fechaNacimiento"], "%Y-%m-%d").date()
             )
             q.save()
         #si todo esta bien.
@@ -131,7 +131,7 @@ def guardarUsuario (request):
     """
 
 def editarUsuario (request, id):
-    print(request.POST["idPlan"])
+    #print(request.POST["idPlan"])
     try :
         if request.method=="POST":
 

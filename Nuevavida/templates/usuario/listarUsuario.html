@@ -37,7 +37,7 @@
         <td>{{t.correo}}</td>
         <td><button class="btn btn-primary"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioUsuario' t.id %}">Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
-            <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarUsuario/{{t.id}}">Eliminar</a></button></td>
+            <button class="btn btn-danger" id="eliminar"><a id="infoeliminar"  href="/Nuevavida/eliminarUsuario/{{t.id}}" onclick="return confirm('Esta seguro que desea eliminar este registro')">Eliminar</a></button></td>
             {% endif %}
     </tr>
 

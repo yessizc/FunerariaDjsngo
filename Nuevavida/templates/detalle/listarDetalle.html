@@ -27,7 +27,7 @@
 
     {%for t in datos %}
     <tr>
-       
+        <td>{{t.cedulaUsuario}}</td>
         <td>{{t.nombreDifunto}}</td>
         <td>{{t.cedulaDifunto}}</td>
         <td>{{t.fechaEntierro}}</td>
@@ -35,10 +35,9 @@
         <td>{{t.fechaVelacion}}</td>
         <td>{{t.lugarVelacion}}</td>
         <td>{{t.tipoUsuario}}</td>
-        <td>{{t.cedulaUsuario.nombre}}</td>
         <td><button class="btn btn-primary"  id="editar"><a id="infoeditar" href="{% url 'Nuevavida:formularioDetalle' t.id %}" >Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
-            <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarDetalle/{{t.id}}">Eliminar</a></button></td>
+            <button class="btn btn-danger" id="eliminar"><a id="infoeliminar" href="/Nuevavida/eliminarDetalle/{{t.id}}" onclick="return confirm('Esta seguro que desea eliminar este registro')">Eliminar</a></button></td>
             {% endif %}
     </tr>
 

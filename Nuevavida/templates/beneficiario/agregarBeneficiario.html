@@ -31,16 +31,16 @@
     </div>
     <div class="form-group">
         <label for="lname">nombre Beneficiario:</label><br>
-        <input class="form-control" type="text" name="nombreBeneficiario" value="{% if Beneficiario %}{{Beneficiario.nombreBeneficiario}}{% endif %}"><br>
+        <input class="form-control" type="text" name="nombreBeneficiario" value="{% if Beneficiario %}{{Beneficiario.nombreBeneficiario}}{% endif %}" required=""><br>
     </div>
     <div class="form-group">
         <label for="lname">apellido Beneficiario:</label><br>
-        <input class="form-control" type="text" name="apellidoBeneficiario" value="{% if Beneficiario %}{{Beneficiario.apellidoBeneficiario}}{% endif %}"><br>
+        <input class="form-control" type="text" name="apellidoBeneficiario" value="{% if Beneficiario %}{{Beneficiario.apellidoBeneficiario}}{% endif %}" required=""><br>
     </div>
 
     <div class="form-group">
         <label for="lname">fecha Nacimiento:</label><br>
-        <input class="form-control" id="fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+        <input class="form-control" id="fechaNacimiento" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}" required=""><br>
     </div>
 
     <input class="btn btn-success" type="submit" value="Guardar" id="guardar">
