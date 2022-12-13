@@ -44,9 +44,9 @@
                     {% for bene in Beneficiario %}
                     
                         {% if bene.id == detalleFuneral.idbeneficiario_id  %}
-                            <option value="{{bene.cedulaUsuario_id}}" selected> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
+                            <option value="{{bene.id}}" selected> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
                         {% else %}
-                            <option value="{{bene.cedulaUsuario_id}}"> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
+                            <option value="{{bene.id}}"> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
                         {% endif %}
                     {% endfor %}
                 {% endif %} 
@@ -58,7 +58,7 @@
         </div>
         <div class="form-group">
             <label for="fname">Fecha de Velacion:</label><br>
-            <input class="form-control" type="date" name="fechaVelacion" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaVelacion}}{% endif %}"><br>
+            <input class="form-control" type="date" name="fechaVelacion" id="fechaVelacion" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaVelacion}}{% endif %}"><br>
         </div>
         <div class="form-group">
             <label for="fname">Lugar de Entierro:</label><br>
@@ -66,7 +66,7 @@
         </div>
         <div class="form-group">
             <label for="fname">Fecha de Entierro:</label><br>
-            <input class="form-control" type="date" name="fechaEntierro" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaEntierro}}{% endif %}"><br>
+            <input class="form-control" type="date" name="fechaEntierro" id="fechaEntierro" value="{% if DetalleFuneral %}{{DetalleFuneral.fechaEntierro}}{% endif %}"><br>
         </div>
 
         <input class="btn btn-success" type="submit" value="Guardar" id="guardar">

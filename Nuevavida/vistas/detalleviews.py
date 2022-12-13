@@ -47,14 +47,16 @@ def formularioDetalle (request, id):
     permisos = {}
     print(id)
     if id != 0:
+        a = DetalleFuneral.objects.get(pk = id)
         q = DetalleFuneral.objects.get(pk = id)
         h = Beneficiario.objects.all()
         p = Usuario.objects.all()
         q.fechaEntierro = q.fechaEntierro.strftime('%Y-%m-%d')
+        a.fechaVelacion = q.fechaVelacion.strftime('%Y-%m-%d')
         print(q.fechaEntierro)
         if "idUser" in request.session:
             permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-            context = {"DetalleFuneral":q, "Usuario" : p, "sesion" : permisos, "Beneficiario" : h}
+            context = {"DetalleFuneral":q, "Usuario" : p, "Beneficiario" : h, "sesion" : permisos, "DetalleFuneral":a,}
             return render(request, 'detalle/agregarDetalle.html',context)
         else:
             messages.warning(request,"Solo puede inscribir detalle el administrador")
@@ -65,7 +67,7 @@ def formularioDetalle (request, id):
         p = Usuario.objects.all()
         if "idUser" in request.session:
             permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-            context = {"DetalleFuneral":t, "Usuario" : p, "sesion" : permisos, "Beneficiario" : h}
+            context = {"DetalleFuneral":t, "Usuario" : p, "Beneficiario" : h, "sesion" : permisos}
             return render(request,'detalle/agregarDetalle.html', context)
         else:
             messages.warning(request,"Solo puede inscribir detalle el administrador")
@@ -90,8 +92,8 @@ def guardarDetalle (request):
                 lugarVelacion = request.POST["lugarVelacion"],
                 idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"]),
                 cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
-                
-            )           
+            
+            )
             q.save()
         #si todo esta bien.
             messages.success(request," Los datos fueron guardados correctamente!")
@@ -123,7 +125,7 @@ def editarDetalle (request, id):
             detalle.fechaVelacion = datetime.datetime.strptime(request.POST["fechaVelacion"], "%Y-%m-%d").date()
             detalle.lugarVelacion = request.POST ["lugarVelacion"]
             detalle.cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
-            detalle.idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"]),
+            detalle.idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"])
             detalle.save()
             messages.success(request," Los datos fueron editados correctamente!")
 

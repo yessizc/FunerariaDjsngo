@@ -12,7 +12,7 @@ class UsuarioAdmin (admin.ModelAdmin):
 
 @admin.register(Beneficiario)
 class BeneficiarioAdmin (admin.ModelAdmin):
-    list_display = ('cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaUsuario')
+    list_display = ('id', 'cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaUsuario')
     search_fields =['nombreBeneficiario','cedulaBeneficiario']
 
 
