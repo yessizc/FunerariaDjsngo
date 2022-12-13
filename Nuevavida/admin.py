@@ -12,7 +12,7 @@ class UsuarioAdmin (admin.ModelAdmin):
 
 @admin.register(Beneficiario)
 class BeneficiarioAdmin (admin.ModelAdmin):
-    list_display = ('cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaUsuario')
+    list_display = ('id', 'cedulaBeneficiario','nombreBeneficiario','apellidoBeneficiario','fechaNacimiento','cedulaUsuario')
     search_fields =['nombreBeneficiario','cedulaBeneficiario']
 
 
@@ -20,7 +20,7 @@ class BeneficiarioAdmin (admin.ModelAdmin):
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
     list_display= ('nombrePlan','precio','caracteristicas')
-    search_fields =['nombrePlan',]
+    search_fields =['nombrePlan']
 
 
 
@@ -38,6 +38,6 @@ class PagosAdmin (admin.ModelAdmin):
 
 @admin.register(DetalleFuneral)
 class DetalleFuneralAdmin (admin.ModelAdmin):
-    list_display = ('nombreDifunto','cedulaDifunto','fechaEntierro','lugarEntierro','fechaVelacion', 'lugarVelacion', 'tipoUsuario', 'cedulaUsuario')
-    search_fields = ['nombreDifunto', 'cedulaDifunto', 'cedulaUsuario']
+    list_display = ('fechaEntierro','lugarEntierro','fechaVelacion', 'lugarVelacion', 'cedulaUsuario')
+    search_fields = ['cedulaUsuario']
     
