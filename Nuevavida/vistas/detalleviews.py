@@ -1,7 +1,10 @@
 
 import datetime
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+from django.core import serializers
 
 from ..models import DetalleFuneral, Usuario, Beneficiario
 
@@ -90,8 +93,8 @@ def guardarDetalle (request):
                 lugarEntierro = request.POST["lugarEntierro"],
                 fechaVelacion = datetime.datetime.strptime(request.POST["fechaVelacion"], "%Y-%m-%d").date(),
                 lugarVelacion = request.POST["lugarVelacion"],
-                idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"]),
-                cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
+                idbeneficiario = Beneficiario.objects.get(pk = request.POST["idBeneficiario"]),
+                cedulaUsuario = Usuario.objects.get(pk = request.POST["idUsuario"])
             
             )
             q.save()
@@ -124,8 +127,8 @@ def editarDetalle (request, id):
             detalle.lugarEntierro = request.POST["lugarEntierro"]
             detalle.fechaVelacion = datetime.datetime.strptime(request.POST["fechaVelacion"], "%Y-%m-%d").date()
             detalle.lugarVelacion = request.POST ["lugarVelacion"]
-            detalle.cedulaUsuario = Usuario.objects.get(pk = request.POST["cedulaUsuario"])
-            detalle.idbeneficiario = Beneficiario.objects.get(pk = request.POST["idbeneficiario"])
+            detalle.cedulaUsuario = Usuario.objects.get(pk = request.POST["idUsuario"])
+            detalle.idbeneficiario = Beneficiario.objects.get(pk = request.POST["idBeneficiario"])
             detalle.save()
             messages.success(request," Los datos fueron editados correctamente!")
 
@@ -156,3 +159,8 @@ def eliminarDetalle (request, id):
     detalle:Esta variable nos trae todo el objeto DetalleFuneral y por medio del id borrar el registro
     
     """
+
+def traerBeneficiariosxCotizante(request):
+    b = Beneficiario.objects.filter(cedulaUsuario = request.POST['id'])
+    
+    return HttpResponse(serializers.serialize("json", b))

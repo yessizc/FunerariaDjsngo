@@ -64,8 +64,6 @@ class Beneficiario (models.Model):
     fechaNacimiento = models.DateField()
     cedulaUsuario = models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
 
-    def __str__(self):
-        return f"{self.nombreBeneficiario} {self.cedulaBeneficiario}"
     
     """Este modulo para que los clientes con plan familiar agreguen beneficiarios
     Args:
@@ -123,6 +121,11 @@ class DetalleFuneral(models.Model):
     lugarEntierro = models.CharField(max_length=100)
     fechaVelacion = models.DateField()
     lugarVelacion = models.CharField(max_length=100)
+    TIPO = (
+        ('c', 'Cotizante'),
+        ('b', 'Beneficiario'),
+    )
+    tipo = models.CharField(max_length=100, choices=TIPO, default='c')
 
     
     def __str__ (self):

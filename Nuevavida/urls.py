@@ -59,6 +59,8 @@ urlpatterns = [
     path ('formularioDetalle/<int:id>',detalleviews.formularioDetalle, name="formularioDetalle"),
     path ('agregarDetalle/',detalleviews.guardarDetalle, name="agregarDetalle"),
     path('eliminarDetalle/<int:id>',detalleviews.eliminarDetalle, name="eliminarDetalle"),
+    path('traerBeneficiariosxCotizante/',detalleviews.traerBeneficiariosxCotizante, name="traerBeneficiariosxCotizante/"),
+
 
 #login
 path('login/',loginview.login, name="login"),

@@ -54,7 +54,7 @@ def listarPagos (request):
     else:
         messages.warning(request,"para ingresar debe iniciar sesion...")
         return render (request,'index.html')   
-    print(q[0].idFactura.totalDeuda)     
+    #print(q[0].idFactura.totalDeuda)     
     context = {"datos":q,"sesion":permisos}
     return render(request, 'pagos/listarPagos.html',context)
     """Esta funcion nos permite listar los pagos registrados en la base de datos

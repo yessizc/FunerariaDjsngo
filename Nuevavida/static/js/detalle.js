@@ -1,36 +1,44 @@
-function validarPlan(){
-    let ceduben = document.getElementById('ceduBenefi').style.display='block';
-    let users = document.getElementById('tipouser').style.display='none';
-    let plan = document.getElementById("cedulaUsuario").value;
-    if( plan != 1 ){
-        users = document.getElementById('tipouser').style.display='block';
-        console.log(plan)
-       
-    }
-    else{
-        users = document.getElementById('tipouser').style.display='none';
-        ceduben = document.getElementById('ceduBenefi').style.display='none';
-        idbeneficiario = document.getElementById('idbeneficiario').value = 4;
-        console.log(plan)
-    }
+function traerBeneficiario(){
+    let idUsuario = document.getElementById('idUsuario');
+    let idUser = idUsuario.value;
+    $.ajax({
+        headers: { "X-CSRFToken": $("input[name='csrfmiddlewaretoken']").val() },
+        url : "../traerBeneficiariosxCotizante/",
+        type : 'POST',
+        data: {id:idUser},
+        dataType:"text", // send as JSON
+        success : function(data, textStatus, jqXHR) {
+            tblbeneficiario(JSON.parse(data))            
+        },
+        error: function(jqXHR, textStatus, errorMessage) {
+            alert("Error"); // Optional            
+        }
+    })
+
 }
 
-function verificar(){
-    let benefici = document.getElementById('benefici').checked;
-    if( benefici == true){
-        document.getElementById('ceduBenefi').style.display='block';
-        console.log(benefici)
-    }
-    else{
-        document.getElementById('ceduBenefi').style.display='none';
+
+function tblbeneficiario(beneficiarios){ 
+    console.log(beneficiarios.length)
+    let tip = document.getElementById('tipo').value;
+    console.log(tip)
+    let html = "<option value='4'>-----------</option>";
+    for(let i = 0; i < beneficiarios.length; i++){
+        html += "<option value='"+beneficiarios[i].pk+"'>"+beneficiarios[i].fields["nombreBeneficiario"] + " " + beneficiarios[i].fields["apellidoBeneficiario"]+"</option>";
 
     }
- 
+    $("#idBeneficiario").html(html);
+    
 }
-function vamos(){
-    let plan = document.getElementById("idbeneficiario").value;
-    if( plan != 0 ){
-       console.log(plan)
+
+function selectradio(){
+    let radioco = document.getElementById('tipo').checked;
+    let barrablock = document.getElementById('cedulaBeneficiario');
+    if(radioco == true){
+        barrablock.style.display = 'none';
+    }
+    else{
+        barrablock.style.display = 'block';
     }
 }
 

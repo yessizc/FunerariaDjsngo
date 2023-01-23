@@ -7,49 +7,41 @@
 <form action="{% url 'Nuevavida:agregarDetalle' %}" method="post">
 {% endif %}
 
+
     {% csrf_token %}
     <input type="hidden" name="id" value="{{DetalleFuneral.id}}">
     <div id="formDetalle">
         <div class="form-group">
             <label for="fname">Cotizante:</label><br>
-            <select class="form-control" onchange="validarPlan()" name="cedulaUsuario" id="cedulaUsuario">
+            <select class="form-control" onchange="traerBeneficiario()" name="idUsuario" id="idUsuario">
                 <option value="0">-----------</option>
                 {% if Usuario %}
                     {% for user in Usuario %}
                     
-                        {% if user.id == detalleFuneral.cedulaUsuario_id  %}
-                            <option value="{{user.idplan_id}}" selected > {{user.nombre}} {{user.apellido}} - CC {{user.cedula}} - Plan: {{user.idplan.nombrePlan}} </option>
+                        {% if user.id == DetalleFuneral.cedulaUsuario_id  %}
+                            <option value="{{user.id}}" selected > {{user.nombre}} {{user.apellido}} - CC {{user.cedula}} - Plan: {{user.idplan.nombrePlan}} </option>
                         {% else %}
-                            <option value="{{user.idplan_id}}"> {{user.nombre}} {{user.apellido}}  - CC {{user.cedula}} - Plan: {{user.idplan.nombrePlan}} </option>
+                            <option value="{{user.id}}"> {{user.nombre}} {{user.apellido}}  - CC {{user.cedula}} - Plan: {{user.idplan.nombrePlan}} </option>
                         {% endif %}
                     {% endfor %}
                 {% endif %} 
             </select>
         </div><br>
-        <div id="tipouser" style="display: none;">
+        <div id="tipouser">
             <p>El usuario a ingresar es: </p>
             <div>
                 <label for="lname">Cotizante:</label>
-                <input type="radio" name="eleccion" id="cotizante" onclick="verificar()"><br><br>
+                <input type="radio" name="eleccion" id="tipo" onclick="selectradio()"><br><br>
 
                 <label for="lname">Beneficiario:</label>
-                <input type="radio" name="eleccion" id="benefici" onclick="verificar()"><br><br>
+                <input type="radio" name="eleccion" id="beneficiario" onclick="selectradio()"><br><br>
             </div>
         </div>
-        <div class="form-group" style="display: none;" id="ceduBenefi">
+        <div class="form-group" id="cedulaBeneficiario" value="{{DetalleFuneral.idbeneficiario_id}}" style="display: none;">
             <label for="fname">Beneficiario:</label><br>
-            <select class="form-control" onchange="vamos()" name="idbeneficiario" id="idbeneficiario">
-                <option value="0">-----------</option>
-                {% if Beneficiario %}
-                    {% for bene in Beneficiario %}
-                    
-                        {% if bene.id == detalleFuneral.idbeneficiario_id  %}
-                            <option value="{{bene.id}}" selected> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
-                        {% else %}
-                            <option value="{{bene.id}}"> {{bene.nombreBeneficiario}} {{bene.apellidoBeneficiario}} - CC {{bene.idbeneficiario}} - Cotizante: {{bene.cedulaUsuario.nombre}} {{bene.cedulaUsuario.apellido}} - CC {{bene.cedulaUsuario.cedula}}</option>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %} 
+
+            <select class="form-control" name="idBeneficiario" id="idBeneficiario">
+               
             </select>
         </div><br>
         <div class="form-group">
